@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1" author="RicardooFilho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela Pessoa ja existe">
+            <not>
+                <tableExists tableName="PESSOA"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="PESSOA">
+            <column name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PESSOA"/>
+            </column>
+            <column name="NOME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IDADE" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addAutoIncrement tableName="PESSOA" columnName="ID" columnDataType="int" incrementBy="1" startWith="1"/>
+    </changeSet>
+</databaseChangeLog>
