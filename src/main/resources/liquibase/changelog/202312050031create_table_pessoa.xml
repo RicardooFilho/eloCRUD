@@ -19,7 +19,13 @@
             <column name="NOME" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="IDADE" type="INT">
+            <column name="CPF" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TELEFONE" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMAIL" type="VARCHAR(60)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

@@ -1,23 +1,27 @@
 package br.com.ricardo.eloCRUD.model.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "PESSOA")
 @Data
-@Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Pessoa {
 
     @Id
     private Long id;
 
+    @Column(length = 65)
     private String nome;
 
-    private Integer idade;
+    @Column(length = 12)
+    private String cpf;
 
-    private String sobrenome;
+    @Column(length = 12)
+    private String telefone;
+
+    @Column(length = 60)
+    private String email;
 }
