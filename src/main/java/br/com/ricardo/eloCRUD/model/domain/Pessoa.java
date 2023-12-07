@@ -27,7 +27,7 @@ public class Pessoa {
 
     @ManyToMany
     @JoinTable(name = "pessoa_local",
-                joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"),
-                inverseJoinColumns = @JoinColumn(name = "local_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "local_id", referencedColumnName = "id"))
     private List<Local> locais;
 }
