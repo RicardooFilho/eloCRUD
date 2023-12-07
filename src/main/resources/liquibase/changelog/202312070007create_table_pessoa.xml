@@ -6,30 +6,30 @@
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet id="1" author="RicardooFilho">
-        <preConditions onFail="MARK_RAN" onFailMessage="A tabela Pessoa ja existe">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela Pessoa já existe">
             <not>
-                <tableExists tableName="PESSOA"/>
+                <tableExists tableName="pessoa"/>
             </not>
         </preConditions>
 
-        <createTable tableName="PESSOA">
-            <column name="ID" type="INT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PESSOA"/>
+        <createTable tableName="pessoa">
+            <column name="id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_pessoa"/>
             </column>
-            <column name="NOME" type="VARCHAR(255)">
+            <column name="nome" type="varchar(254)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CPF" type="VARCHAR(12)">
+            <column name="cpf" type="varchar(11)">
                 <constraints nullable="false"/>
             </column>
-            <column name="TELEFONE" type="VARCHAR(12)">
+            <column name="telefone" type="varchar(11)">
                 <constraints nullable="false"/>
             </column>
-            <column name="EMAIL" type="VARCHAR(60)">
+            <column name="email" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addAutoIncrement tableName="PESSOA" columnName="ID" columnDataType="int" incrementBy="1" startWith="1"/>
+        <addAutoIncrement tableName="pessoa" columnName="id" columnDataType="int" incrementBy="1" startWith="1"/>
     </changeSet>
 </databaseChangeLog>
