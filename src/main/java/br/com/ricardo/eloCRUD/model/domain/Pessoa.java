@@ -1,8 +1,10 @@
 package br.com.ricardo.eloCRUD.model.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,5 +32,6 @@ public class Pessoa {
             joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "local_id", referencedColumnName = "id"))
     private List<Local> locais;
+
 
 }
