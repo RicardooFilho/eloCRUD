@@ -1,10 +1,13 @@
 package br.com.ricardo.eloCRUD.model.domain;
 
 import br.com.ricardo.eloCRUD.exceptions.CpfInvalidoException;
+import br.com.ricardo.eloCRUD.exceptions.CpfNullException;
+import br.com.ricardo.eloCRUD.formatters.Formatter;
+import br.com.ricardo.eloCRUD.validators.Validator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.text.ParseException;
 
 public class PessoaTest {
 
@@ -26,10 +29,38 @@ public class PessoaTest {
     }
 
     @Test
-    public void cpfInvalidoTest() throws CpfInvalidoException {
+    public void cpfFormatadoTest() throws CpfInvalidoException, ParseException {
+        Pessoa pessoa = new Pessoa();
+
+        pessoa.setCpf("46477850842");
+
+        String cpfFormatado = Formatter.formatCpf(pessoa.getCpf(), "AAA.AAA.AAA-AA");
+
+        Assertions.assertEquals("464.778.508-42", cpfFormatado);
+    }
+
+    @Test
+    public void cpfValidadoTest() throws Exception{
         try {
             Pessoa pessoa = new Pessoa();
+
             pessoa.setCpf("");
+
+            Validator.validateCpf(pessoa.getCpf());
+        } catch (CpfNullException cpfNullException) {
+            Assertions.assertEquals("Insira um CPF", cpfNullException.getMessage());
+        }
+    }
+
+    @Test
+    public void cpfInvalidoTest() throws Exception{
+        try {
+            Pessoa pessoa = new Pessoa();
+
+            pessoa.setCpf("496.884.965.587");
+
+            String cpfFormatado = Formatter.unformatCpf(pessoa.getCpf());
+            String cpfValidado = Validator.validateCpf(cpfFormatado);
         } catch (CpfInvalidoException cpfInvalidoException) {
             Assertions.assertEquals("O CPF inserido é inválido", cpfInvalidoException.getMessage());
         }
