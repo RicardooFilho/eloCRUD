@@ -1,26 +1,21 @@
-/*package br.com.ricardo.eloCRUD.model.repository;
+package br.com.ricardo.eloCRUD.model.repository;
 
 import br.com.ricardo.eloCRUD.model.domain.Pessoa;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 @DataJpaTest
-
-
-
-@ActiveProfiles(value = "test")
 public class PessoaRepositoryTest {
 
     @Autowired
     private PessoaRepository pessoaRepository;
 
     @Test
-    public void testaInsertDePessoa() {
+    public void buscaPessoaPorNomeStartingWithTest() {
         Pessoa pessoa = new Pessoa();
 
         pessoa.setNome("João Henrique");
@@ -34,4 +29,4 @@ public class PessoaRepositoryTest {
 
         Assertions.assertEquals(1, pessoas.size());
     }
-}*/
+}

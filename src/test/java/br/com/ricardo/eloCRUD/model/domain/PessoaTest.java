@@ -44,11 +44,11 @@ public class PessoaTest {
         try {
             Pessoa pessoa = new Pessoa();
 
-            pessoa.setCpf("");
+            pessoa.setCpf(null);
 
             Validator.validateCpf(pessoa.getCpf());
         } catch (CpfNullException cpfNullException) {
-            Assertions.assertEquals("Insira um CPF", cpfNullException.getMessage());
+            Assertions.assertEquals("Informe um CPF válido", cpfNullException.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ public class PessoaTest {
             pessoa.setCpf("496.884.965.587");
 
             String cpfFormatado = Formatter.unformatCpf(pessoa.getCpf());
-            String cpfValidado = Validator.validateCpf(cpfFormatado);
+            Validator.validateCpf(cpfFormatado);
         } catch (CpfInvalidoException cpfInvalidoException) {
             Assertions.assertEquals("O CPF inserido é inválido", cpfInvalidoException.getMessage());
         }
