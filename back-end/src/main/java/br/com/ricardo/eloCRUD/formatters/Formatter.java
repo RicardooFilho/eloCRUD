@@ -15,4 +15,5 @@ public class Formatter {
     public static String unformatCpf(String cpf) {
         return cpf.replaceAll("\\.|\\-", "");
     }
+    // teste
 }
