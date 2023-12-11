@@ -29,7 +29,7 @@ public class PessoaTest {
     }
 
     @Test
-    public void cpfFormatadoTest() throws CpfInvalidoException, ParseException {
+    public void cpfFormatadoTest() throws ParseException {
         Pessoa pessoa = new Pessoa();
 
         pessoa.setCpf("46477850842");
