@@ -1,1 +1,0 @@
-insert into local (id,descricao) values(99,'Setor teste99');

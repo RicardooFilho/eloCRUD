@@ -12,7 +12,7 @@ import java.util.List;
 public class Local {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "gen_local")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_local")
     @SequenceGenerator(sequenceName = "local_sequence", initialValue = 1, name = "gen_local")
     private Long id;
 

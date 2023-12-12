@@ -1,0 +1,5 @@
+INSERT INTO local (id, descricao) VALUES (3, 'Setor de Agricultura')
+INSERT INTO local (id, descricao) VALUES (4, 'Setor de Educação')
+INSERT INTO local (id, descricao) VALUES (6, 'Prefeitura Municipal')
+INSERT INTO local (id, descricao) VALUES (7, 'Planejamento de Projetos')
+INSERT INTO local (id, descricao) VALUES (9, 'Setor de Implantação')

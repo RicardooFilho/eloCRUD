@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface LocalRepository extends JpaRepository<Local, Long> {
 
-    List<Local> findByDescricaoStartingWith(String descricao);
+    List<Local> findByDescricaoContaining(String descricao);
 }

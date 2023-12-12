@@ -32,12 +32,12 @@
     </changeSet>
 
     <changeSet id="2" author="RicardoFilhoo">
-        <preConditions onFail="MARK_RAN" onFailMessage="A sequence pessoa_id já existe">
+        <preConditions onFail="MARK_RAN" onFailMessage="A sequence pessoa_sequence já existe">
             <not>
-                <sequenceExists sequenceName="pessoa_id"/>
+                <sequenceExists sequenceName="pessoa_sequence"/>
             </not>
         </preConditions>
 
-        <createSequence sequenceName="pessoa_id" startValue="1" incrementBy="1"/>
+        <createSequence sequenceName="pessoa_sequence" startValue="1" incrementBy="50" minValue="1" maxValue="99999"/>
     </changeSet>
 </databaseChangeLog>

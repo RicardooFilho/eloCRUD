@@ -22,13 +22,13 @@
         </createTable>
     </changeSet>
     <changeSet id="2" author="RicardooFilho">
-        <preConditions onFail="MARK_RAN" onFailMessage="A sequence local_id já existe">
+        <preConditions onFail="MARK_RAN" onFailMessage="A sequence local_sequence já existe">
             <not>
                 <sequenceExists sequenceName="local_sequence"/>
             </not>
         </preConditions>
 
-        <createSequence sequenceName="local_sequence" startValue="1" incrementBy="50" minValue="0" maxValue="99999"/>
+        <createSequence sequenceName="local_sequence" startValue="1" incrementBy="50" minValue="1" maxValue="99999"/>
     </changeSet>
 
 
