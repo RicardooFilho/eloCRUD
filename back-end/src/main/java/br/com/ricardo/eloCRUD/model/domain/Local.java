@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "locais")
+@Table(name = "local")
 @Data
 public class Local {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "gen_local")
+    @SequenceGenerator(sequenceName = "local_sequence", initialValue = 1, name = "gen_local")
     private Long id;
 
     @Column(length = 50, nullable = false)

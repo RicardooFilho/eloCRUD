@@ -1,21 +1,28 @@
 package br.com.ricardo.eloCRUD.model.repository;
 
+import br.com.ricardo.eloCRUD.model.domain.Local;
 import br.com.ricardo.eloCRUD.model.domain.Pessoa;
 //import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
+import org.hibernate.collection.spi.PersistentSortedMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @DataJpaTest
 @ActiveProfiles("dev")
+@Sql(statements = {"insert into pessoa(id,nome,cpf,telefone,email)" +
+        " values(1, 'Ricardo', '46477520531', '44312445679', 'teste@teste.com')"})
 public class PessoaRepositoryTest {
 
     @Autowired
@@ -53,12 +60,18 @@ public class PessoaRepositoryTest {
         pessoa2.setTelefone("44974558893");
         pessoa2.setEmail("teste@teste.com");
 
+        Local local = new Local();
+
+
+
+        pessoa.getLocais().add(local);
+
         pessoaRepository.save(pessoa);
         pessoaRepository.save(pessoa2);
 
         List<Pessoa> pessoas = pessoaRepository.findByNomeStartingWith("Jo");
 
-        Assertions.assertThat(pessoas.size()).isEqualTo(1);
+        assertThat(pessoas.size()).isEqualTo(1);
     }
 
     @Test
@@ -72,32 +85,22 @@ public class PessoaRepositoryTest {
 
         Pessoa pessoaInserida = pessoaRepository.save(pessoa);
 
-        Assertions.assertThat(testEntityManager
+        assertThat(testEntityManager
                                 .find(Pessoa.class, pessoaInserida.getId()) )
                                 .isEqualTo(pessoa);
     }
 
     @Test
     public void UpdateDePessoaTest() {
-        Pessoa pessoa = new Pessoa();
-        pessoa.setId(1L);
-        pessoa.setNome("Ricardo");
-        pessoa.setCpf("78945612310");
-        pessoa.setTelefone("44567880098");
-        pessoa.setEmail("teste@teste.com");
 
-        testEntityManager.persist(pessoa);
+        Pessoa pessoa = pessoaRepository.findById(1L).get();
+        pessoa.setNome("Jean Soares");
 
-        String novoNome = "Jean Soares";
+        Pessoa pessoaSalvada = pessoaRepository.save(pessoa);
 
-        pessoa.setNome(novoNome);
+        assertThat(pessoaSalvada.getNome()).isEqualTo("Jean Soares");
 
-        pessoaRepository.save(pessoa);
 
-        Assertions.assertThat(testEntityManager
-                            .find(Pessoa.class, pessoa.getId())
-                            .getNome())
-                            .isEqualTo(novoNome);
     }
 
     @Test
@@ -113,7 +116,7 @@ public class PessoaRepositoryTest {
 
         Optional<Pessoa> pessoaRecuperada = pessoaRepository.findById(pessoa.getId());
 
-        Assertions.assertThat(pessoaRecuperada).contains(pessoa);
+        assertThat(pessoaRecuperada).contains(pessoa);
 
     }
 }

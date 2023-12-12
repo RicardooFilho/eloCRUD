@@ -6,13 +6,13 @@
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet id="1" author="RicardooFilho">
-        <preConditions onFail="MARK_RAN" onFailMessage="A tabela locais já existe">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela local já existe">
             <not>
-                <tableExists tableName="locais"/>
+                <tableExists tableName="local"/>
             </not>
         </preConditions>
 
-        <createTable tableName="locais">
+        <createTable tableName="local">
             <column name="id" type="int">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_local"/>
             </column>
@@ -20,8 +20,17 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <addAutoIncrement tableName="locais" columnName="id" columnDataType="int" incrementBy="1" startWith="1"/>
     </changeSet>
+    <changeSet id="2" author="RicardooFilho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A sequence local_id já existe">
+            <not>
+                <sequenceExists sequenceName="local_sequence"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="local_sequence" startValue="1" incrementBy="50" minValue="0" maxValue="99999"/>
+    </changeSet>
+
+
 
 </databaseChangeLog>

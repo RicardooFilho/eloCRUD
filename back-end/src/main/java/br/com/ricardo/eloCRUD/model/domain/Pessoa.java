@@ -13,6 +13,7 @@ import java.util.List;
 public class Pessoa {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 254, nullable = false)

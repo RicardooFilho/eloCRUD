@@ -6,13 +6,13 @@
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet id="1" author="RicardooFilho">
-        <preConditions onFail="MARK_RAN" onFailMessage="A tabela pessoa_locais já existe">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela pessoa_local já existe">
             <not>
-                <tableExists tableName="pessoa_locais"/>
+                <tableExists tableName="pessoa_local"/>
             </not>
         </preConditions>
 
-        <createTable tableName="pessoa_locais">
+        <createTable tableName="pessoa_local">
             <column name="pessoa_id" type="int">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pfk_pessoa"/>
             </column>
@@ -21,16 +21,16 @@
             </column>
         </createTable>
         
-        <addForeignKeyConstraint baseTableName="pessoa_locais"
+        <addForeignKeyConstraint baseTableName="pessoa_local"
                                  baseColumnNames="pessoa_id"
-                                 constraintName="fk_pessoa_locais_pessoa_id"
+                                 constraintName="fk_pessoa_local_pessoa_id"
                                  referencedTableName="pessoa"
                                  referencedColumnNames="id"/>
 
-        <addForeignKeyConstraint baseTableName="pessoa_locais"
+        <addForeignKeyConstraint baseTableName="pessoa_local"
                                  baseColumnNames="local_id"
-                                 constraintName="fk_pessoa_locais_local_id"
-                                 referencedTableName="locais"
+                                 constraintName="fk_pessoa_local_local_id"
+                                 referencedTableName="local"
                                  referencedColumnNames="id"/>
     </changeSet>
 
