@@ -71,9 +71,10 @@ public class LocalRepositoryTest {
 
         localRepository.saveAndFlush(local);
         localRepository.deleteById(1L);
+        localRepository.deleteById(3L);
 
         List<Local> locais = localRepository.findAll();
 
-        assertThat(locais).hasSize(5);
+        assertThat(locais).hasSize(4);
     }
 }
