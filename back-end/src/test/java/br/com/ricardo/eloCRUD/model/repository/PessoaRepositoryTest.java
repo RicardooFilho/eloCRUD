@@ -26,7 +26,9 @@ public class PessoaRepositoryTest {
     public void buscaPessoaPorNomeContainingTest() {
         List<Pessoa> pessoas = pessoaRepository.findByNomeContaining("a");
 
-        assertThat(pessoas).hasSize(4);
+        assertThat(pessoas).extracting(Pessoa::getId)
+                .hasSize(4)
+                .containsExactlyInAnyOrder(12L, 14L, 13L, 11L);
     }
 
     @Test
@@ -47,11 +49,11 @@ public class PessoaRepositoryTest {
 
         assertThat(pessoasSalvas).extracting(Pessoa::getId)
                 .hasSize(6)
-                .containsExactlyInAnyOrder(1L, 90L, 85L, 80L, 75L, 70L);
+                .containsExactlyInAnyOrder(1L, 10L, 14L, 11L, 13L, 12L);
 
         assertThat(pessoa.getLocais()).extracting(Local::getId)
                 .hasSize(5)
-                .containsExactlyInAnyOrder(3L, 6L, 4L, 7L, 9L);
+                .containsExactlyInAnyOrder(10L, 12L, 11L, 14L, 13L);
     }
 
     @Test
@@ -60,7 +62,7 @@ public class PessoaRepositoryTest {
 
         pessoa.setCpf("46477850844");
 
-        Pessoa pessoaAtualizada = pessoaRepository.saveAndFlush(pessoa);
+        Pessoa pessoaAtualizada = pessoaRepository.save(pessoa);
 
         assertThat(pessoaAtualizada.getCpf()).isEqualTo("46477850844");
     }
@@ -75,13 +77,13 @@ public class PessoaRepositoryTest {
         pessoa.setEmail("teste@teste.com");
 
         pessoaRepository.save(pessoa);
-        pessoaRepository.deleteAllById(List.of(1L, 70L));
+        pessoaRepository.deleteAllById(List.of(2L, 10L));
 
         List<Pessoa> pessoasSalvas = pessoaRepository.findAll();
 
         assertThat(pessoasSalvas).extracting(Pessoa::getId)
                 .hasSize(4)
-                .containsExactlyInAnyOrder(75L, 80L, 85L, 90L);
+                .containsExactlyInAnyOrder(14L, 13L, 12L, 11L);
     }
 
 }

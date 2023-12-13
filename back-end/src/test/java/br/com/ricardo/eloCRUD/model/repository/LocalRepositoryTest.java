@@ -27,7 +27,7 @@ public class LocalRepositoryTest {
 
         assertThat(locais).extracting(Local::getId)
                 .hasSize(4)
-                .containsExactlyInAnyOrder(9L, 3L, 4L, 7L);
+                .containsExactlyInAnyOrder(10L, 11L, 13L, 14L);
     }
 
     @Test
@@ -38,25 +38,25 @@ public class LocalRepositoryTest {
         List<Pessoa> pessoas = pessoaRepository.findAll();
         local.setPessoas(pessoas);
 
-        Local novoLocal = localRepository.saveAndFlush(local);
+        Local novoLocal = localRepository.save(local);
 
         List<Local> locais = localRepository.findAll();
 
         assertThat(locais).extracting(Local::getId)
                 .hasSize(6)
-                .containsExactlyInAnyOrder(9L, 3L, 4L, 7L, 6L, 2L);
+                .containsExactlyInAnyOrder(2L, 13L, 11L, 12L, 14L, 10L);
 
         assertThat(novoLocal.getPessoas()).extracting(Pessoa::getId)
                 .hasSize(5)
-                .containsExactlyInAnyOrder(1L, 5L, 2L, 10L, 7L);
+                .containsExactlyInAnyOrder(14L, 13L, 11L, 12L, 10L);
     }
 
     @Test
     public void atualizaLocalTest() { //update
-        Local local = localRepository.findById(4L).get();
+        Local local = localRepository.findById(13L).get();
         local.setDescricao("Setor de Alimentos");
 
-        Local LocalAtualizado = localRepository.saveAndFlush(local);
+        Local LocalAtualizado = localRepository.save(local);
 
         assertThat(LocalAtualizado.getDescricao())
                 .isEqualTo("Setor de Alimentos");
@@ -69,12 +69,14 @@ public class LocalRepositoryTest {
 
         local.setDescricao("Setor de Automotivos");
 
-        localRepository.saveAndFlush(local);
+        localRepository.save(local);
         localRepository.deleteById(1L);
-        localRepository.deleteById(3L);
+        localRepository.deleteById(13L);
 
         List<Local> locais = localRepository.findAll();
 
-        assertThat(locais).hasSize(4);
+        assertThat(locais).extracting(Local::getId)
+                .hasSize(4)
+                .containsExactlyInAnyOrder(10L, 14L, 12L, 11L);
     }
 }
