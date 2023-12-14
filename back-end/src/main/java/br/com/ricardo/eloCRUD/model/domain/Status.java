@@ -3,6 +3,8 @@ package br.com.ricardo.eloCRUD.model.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Table(name = "status")
 @Data
@@ -18,4 +20,7 @@ public class Status {
 
     @Column(nullable = false)
     private SituacaoEnum situacao;
+
+    @OneToMany(mappedBy = "statusId")
+    private List<Tarefa> tarefas;
 }

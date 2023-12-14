@@ -37,19 +37,28 @@ public class Tarefa {
     @Column(nullable = false)
     private String descricao;
 
+    @ManyToOne
+    @JoinColumn(name = "requerido_id", referencedColumnName = "id")
     @Column(name = "requerido_id", nullable = false)
     private Pessoa requeridoId;
 
+    @ManyToOne
+    @JoinColumn(name = "local_destino_id", nullable = false)
     @Column(name = "local_destino_id", nullable = false)
     private Local localDestinoId;
 
+    @JoinColumn(name = "comentario_id", referencedColumnName = "id")
     @Column(name = "comentario_id")
     private Comentario comentarioId;
 
     @Column(name = "data_criacao", nullable = false)
     private LocalDate dataCriacao;
 
+    @ManyToOne
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
     @Column(name = "status_id",nullable = false)
     private Status statusId;
+
+
 
 }

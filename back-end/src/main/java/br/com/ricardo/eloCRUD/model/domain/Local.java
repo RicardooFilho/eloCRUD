@@ -21,4 +21,7 @@ public class Local {
 
     @ManyToMany(mappedBy = "locais")
     private List<Pessoa> pessoas;
+
+    @OneToMany(mappedBy = "localDestinoId")
+    private List<Tarefa> tarefas;
 }

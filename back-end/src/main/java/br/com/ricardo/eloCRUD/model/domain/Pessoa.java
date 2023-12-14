@@ -36,7 +36,8 @@ public class Pessoa {
     private List<Local> locais;
 
     @OneToMany(mappedBy = "requerenteId")
-    private List<Tarefa> tarefas;
+    private List<Tarefa> tarefasCriadas;
 
-
+    @OneToMany(mappedBy = "requeridoId")
+    private List<Tarefa> tarefasRequeridas;
 }
