@@ -20,7 +20,4 @@ public class Status {
 
     @Column(nullable = false)
     private SituacaoEnum situacao;
-
-    @OneToMany(mappedBy = "statusId")
-    private List<Tarefa> tarefas;
 }

@@ -34,10 +34,4 @@ public class Pessoa {
             joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "local_id", referencedColumnName = "id"))
     private List<Local> locais;
-
-    @OneToMany(mappedBy = "requerenteId")
-    private List<Tarefa> tarefasCriadas;
-
-    @OneToMany(mappedBy = "requeridoId")
-    private List<Tarefa> tarefasRequeridas;
 }

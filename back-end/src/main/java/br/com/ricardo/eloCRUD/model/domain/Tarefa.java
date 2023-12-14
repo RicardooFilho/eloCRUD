@@ -47,7 +47,6 @@ public class Tarefa {
     @Column(name = "local_destino_id", nullable = false)
     private Local localDestinoId;
 
-    @JoinColumn(name = "comentario_id", referencedColumnName = "id")
     @Column(name = "comentario_id")
     private Comentario comentarioId;
 
@@ -58,7 +57,6 @@ public class Tarefa {
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     @Column(name = "status_id",nullable = false)
     private Status statusId;
-
 
 
 }

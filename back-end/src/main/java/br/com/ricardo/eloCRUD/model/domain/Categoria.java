@@ -17,7 +17,4 @@ public class Categoria {
 
     @Column(length = 20, nullable = false)
     private String descricao;
-
-    @OneToMany(mappedBy = "categoriaId")
-    private List<Tarefa> tarefas;
 }

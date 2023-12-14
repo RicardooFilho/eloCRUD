@@ -23,4 +23,9 @@ public class Comentario {
 
     @Column(nullable = false)
     private LocalDate dataComentario;
+
+    @ManyToOne
+    @JoinColumn(name = "tarefa_id", referencedColumnName = "id")
+    @Column(name = "tarefa_id")
+    private Tarefa tarefaId;
 }
