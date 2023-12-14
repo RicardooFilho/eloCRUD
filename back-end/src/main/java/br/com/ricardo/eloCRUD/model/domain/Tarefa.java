@@ -57,6 +57,4 @@ public class Tarefa {
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     @Column(name = "status_id",nullable = false)
     private Status statusId;
-
-
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"> 
+    
+    <changeSet id="1" author="RicardoFilhoo">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela categoria já existe">
+            <not>
+                <tableExists tableName="categoria"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="categoria">
+            <column name="id" type="int">
+                <constraints nullable="false"  primaryKey="true" primaryKeyName="pk_categoria"
+            </column>
+            <column name="descricao" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createSequence sequenceName="categoria_sequence" startValue="1" incrementBy="50" minValue="1" maxValue="99999"/>
+    </changeSet>
+    
+</databaseChangeLog>
