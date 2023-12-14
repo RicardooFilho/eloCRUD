@@ -35,5 +35,8 @@ public class Pessoa {
             inverseJoinColumns = @JoinColumn(name = "local_id", referencedColumnName = "id"))
     private List<Local> locais;
 
+    @OneToMany(mappedBy = "requerenteId")
+    private List<Tarefa> tarefas;
+
 
 }

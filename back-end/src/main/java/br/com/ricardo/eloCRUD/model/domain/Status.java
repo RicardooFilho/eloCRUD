@@ -16,5 +16,6 @@ public class Status {
     @Column(length = 30, nullable = false)
     private String descricao;
 
+    @Column(nullable = false)
     private SituacaoEnum situacao;
 }
