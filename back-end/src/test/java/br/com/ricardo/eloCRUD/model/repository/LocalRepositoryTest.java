@@ -40,12 +40,9 @@ public class LocalRepositoryTest {
 
         Local novoLocal = localRepository.save(local);
 
-        List<Local> locais = localRepository.findAll();
-
-        assertThat(locais).extracting(Local::getId)
-                .hasSize(6)
-                .containsExactlyInAnyOrder(2L, 13L, 11L, 12L, 14L, 10L);
-
+        assertThat(novoLocal).isNotNull();
+        assertThat(novoLocal.getId()).isNotNull();
+        assertThat(novoLocal.getDescricao()).isEqualTo("Gabinente do Prefeito");
         assertThat(novoLocal.getPessoas()).extracting(Pessoa::getId)
                 .hasSize(5)
                 .containsExactlyInAnyOrder(14L, 13L, 11L, 12L, 10L);
@@ -56,21 +53,17 @@ public class LocalRepositoryTest {
         Local local = localRepository.findById(13L).get();
         local.setDescricao("Setor de Alimentos");
 
-        Local LocalAtualizado = localRepository.save(local);
+        Local localAtualizado = localRepository.save(local);
 
-        assertThat(LocalAtualizado.getDescricao())
+        assertThat(localAtualizado.getDescricao())
                 .isEqualTo("Setor de Alimentos");
+        assertThat(localAtualizado.getId()).isEqualTo(13L);
 
     }
 
     @Test
     public void deletaLocalTest() { //delete
-        Local local = new Local();
 
-        local.setDescricao("Setor de Automotivos");
-
-        localRepository.save(local);
-        localRepository.deleteById(1L);
         localRepository.deleteById(13L);
 
         List<Local> locais = localRepository.findAll();

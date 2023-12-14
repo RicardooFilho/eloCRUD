@@ -16,7 +16,5 @@ public class Status {
     @Column(length = 30, nullable = false)
     private String descricao;
 
-    @OneToOne
-    @Column(name = "situacao_id", nullable = false)
-    private Situacao situacao_id;
+    private SituacaoEnum situacao;
 }
