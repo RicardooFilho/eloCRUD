@@ -1,9 +1,8 @@
-package br.com.ricardo.eloCRUD.model.domain;
+package br.com.ricardo.eloCRUD.domain;
 
+import br.com.ricardo.eloCRUD.enums.SituacaoEnum;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.List;
 
 @Entity
 @Table(name = "status")
@@ -18,6 +17,6 @@ public class Status {
     @Column(length = 30, nullable = false)
     private String descricao;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private SituacaoEnum situacao;
 }

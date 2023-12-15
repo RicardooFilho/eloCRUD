@@ -1,6 +1,6 @@
-package br.com.ricardo.eloCRUD.model.repository;
+package br.com.ricardo.eloCRUD.repository;
 
-import br.com.ricardo.eloCRUD.model.domain.Local;
+import br.com.ricardo.eloCRUD.domain.Local;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package br.com.ricardo.eloCRUD.model.domain;
+package br.com.ricardo.eloCRUD.enums;
 
 public enum SituacaoEnum {
     PENDENTE,

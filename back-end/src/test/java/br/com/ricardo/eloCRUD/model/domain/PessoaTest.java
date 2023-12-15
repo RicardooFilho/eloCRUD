@@ -1,5 +1,6 @@
 package br.com.ricardo.eloCRUD.model.domain;
 
+import br.com.ricardo.eloCRUD.domain.Pessoa;
 import br.com.ricardo.eloCRUD.exceptions.CpfInvalidoException;
 import br.com.ricardo.eloCRUD.exceptions.CpfNullException;
 import br.com.ricardo.eloCRUD.formatters.Formatter;

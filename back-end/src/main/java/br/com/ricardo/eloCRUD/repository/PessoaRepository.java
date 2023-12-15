@@ -1,6 +1,6 @@
-package br.com.ricardo.eloCRUD.model.repository;
+package br.com.ricardo.eloCRUD.repository;
 
-import br.com.ricardo.eloCRUD.model.domain.Pessoa;
+import br.com.ricardo.eloCRUD.domain.Pessoa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +10,4 @@ import java.util.List;
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
     List<Pessoa> findByNomeContaining(String nome);
-
-    Pessoa findByCpfContaining(String cpf);
 }

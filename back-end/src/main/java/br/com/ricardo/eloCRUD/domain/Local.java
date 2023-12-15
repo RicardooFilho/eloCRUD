@@ -1,9 +1,8 @@
-package br.com.ricardo.eloCRUD.model.domain;
+package br.com.ricardo.eloCRUD.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

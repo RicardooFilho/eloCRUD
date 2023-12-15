@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1" author="RicardooFilho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela tarefa já existe">
+            <not>
+                <tableExists tableName="tarefa"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="tarefa">
+            <column name="numero" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_tarefa"/>
+            </column>
+            <column name="exercicio" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="requerente_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="titulo" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="categoria_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao" type="varchar(1500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="requerido_id" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="local_destino_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_criacao" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createSequence sequenceName="tarefa_sequence" startValue="1" incrementBy="50" minValue="1" maxValue="99999"/>
+
+        <addForeignKeyConstraint baseTableName="tarefa"
+                                 baseColumnNames="requerente_id"
+                                 constraintName="fk_requerente_id"
+                                 referencedTableName="pessoa"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="tarefa"
+                                 baseColumnNames="categoria_id"
+                                 constraintName="fk_categoria_id"
+                                 referencedTableName="categoria"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="tarefa"
+                                 baseColumnNames="requerido_id"
+                                 constraintName="fk_requerido_id"
+                                 referencedTableName="pessoa"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="tarefa"
+                                 baseColumnNames="local_destino_id"
+                                 constraintName="fk_local_destino_id"
+                                 referencedTableName="local"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="tarefa"
+                                 baseColumnNames="status_id"
+                                 constraintName="fk_status_id"
+                                 referencedTableName="status"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

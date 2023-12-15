@@ -1,5 +1,6 @@
 package br.com.ricardo.eloCRUD.model.domain;
 
+import br.com.ricardo.eloCRUD.domain.Local;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

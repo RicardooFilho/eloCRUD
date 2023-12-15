@@ -1,12 +1,16 @@
 package br.com.ricardo.eloCRUD.model.repository;
 
-import br.com.ricardo.eloCRUD.model.domain.Local;
-import br.com.ricardo.eloCRUD.model.domain.Pessoa;
+import br.com.ricardo.eloCRUD.domain.Local;
+import br.com.ricardo.eloCRUD.domain.Pessoa;
+import br.com.ricardo.eloCRUD.repository.LocalRepository;
+import br.com.ricardo.eloCRUD.repository.PessoaRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+
+import java.util.ArrayList;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,8 +39,7 @@ public class LocalRepositoryTest {
         Local local = new Local();
 
         local.setDescricao("Gabinete do Prefeito");
-        List<Pessoa> pessoas = pessoaRepository.findAll();
-        local.setPessoas(pessoas);
+        local.getPessoas().add(new Pessoa());
 
         Local novoLocal = localRepository.save(local);
 
@@ -44,8 +47,8 @@ public class LocalRepositoryTest {
         assertThat(novoLocal.getId()).isNotNull();
         assertThat(novoLocal.getDescricao()).isEqualTo("Gabinente do Prefeito");
         assertThat(novoLocal.getPessoas()).extracting(Pessoa::getId)
-                .hasSize(5)
-                .containsExactlyInAnyOrder(14L, 13L, 11L, 12L, 10L);
+                .hasSize(1)
+                .containsExactlyInAnyOrder(1L);
     }
 
     @Test
@@ -58,7 +61,6 @@ public class LocalRepositoryTest {
         assertThat(localAtualizado.getDescricao())
                 .isEqualTo("Setor de Alimentos");
         assertThat(localAtualizado.getId()).isEqualTo(13L);
-
     }
 
     @Test

@@ -1,4 +1,4 @@
-package br.com.ricardo.eloCRUD.model.domain;
+package br.com.ricardo.eloCRUD.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -25,7 +25,7 @@ public class Comentario {
     private LocalDate dataComentario;
 
     @ManyToOne
-    @JoinColumn(name = "tarefa_id", referencedColumnName = "id")
-    @Column(name = "tarefa_id")
-    private Tarefa tarefaId;
+    @JoinColumn(name = "tarefa_numero", referencedColumnName = "numero", nullable = false)
+//    @Column(name = "tarefa_id")
+    private Tarefa tarefaNumero;
 }

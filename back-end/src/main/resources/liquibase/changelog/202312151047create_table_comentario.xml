@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1" author="RicardooFilho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela comentario já existe">
+            <not>
+                <tableExists tableName="comentario"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="comentario">
+            <column name="id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_comentario"/>
+            </column>
+            <column name="descricao" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pessoa_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_comentario" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tarefa_numero" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createSequence sequenceName="comentario_sequence" startValue="1" incrementBy="50" minValue="1" maxValue="99999"/>
+        
+        <addForeignKeyConstraint baseTableName="comentario" 
+                                 baseColumnNames="pessoa_id" 
+                                 constraintName="fk_pessoa_id" 
+                                 referencedTableName="pessoa"
+                                 referencedColumnNames="id"/>
+        
+        <addForeignKeyConstraint baseTableName="comentario"
+                                 baseColumnNames="tarefa_numero"
+                                 constraintName="fk_tarefa_numero"
+                                 referencedTableName="tarefa"
+                                 referencedColumnNames="numero"/>
+    </changeSet>
+
+</databaseChangeLog>
