@@ -2,12 +2,14 @@ package br.com.ricardo.eloCRUD.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
 @Entity
 @Table(name = "pessoa")
 @Data
+@EqualsAndHashCode(of = "id")
 public class Pessoa {
 
     @Id

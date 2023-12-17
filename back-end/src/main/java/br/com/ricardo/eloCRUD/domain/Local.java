@@ -1,13 +1,16 @@
 package br.com.ricardo.eloCRUD.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
 @Entity
 @Table(name = "local")
 @Data
+@EqualsAndHashCode(of = "id")
 public class Local {
 
     @Id

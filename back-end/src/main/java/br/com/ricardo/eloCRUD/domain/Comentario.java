@@ -18,14 +18,14 @@ public class Comentario {
     @Column(length = 200, nullable = false)
     private String descricao;
 
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id", referencedColumnName = "id", nullable = false)
     private Pessoa pessoaId;
 
-    @Column(nullable = false)
+    @Column(name = "data_comentario", nullable = false)
     private LocalDate dataComentario;
 
     @ManyToOne
     @JoinColumn(name = "tarefa_numero", referencedColumnName = "numero", nullable = false)
-//    @Column(name = "tarefa_id")
     private Tarefa tarefaNumero;
 }

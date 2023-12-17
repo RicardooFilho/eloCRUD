@@ -1,4 +1,4 @@
-package br.com.ricardo.eloCRUD.model.domain;
+package br.com.ricardo.eloCRUD.domain;
 
 import br.com.ricardo.eloCRUD.domain.Pessoa;
 import br.com.ricardo.eloCRUD.exceptions.CpfInvalidoException;
@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PessoaTest {
 
@@ -22,22 +24,22 @@ public class PessoaTest {
         pessoa.setTelefone("44974001238");
         pessoa.setEmail("teste@teste.com");
 
-        Assertions.assertEquals(1L, pessoa.getId());
-        Assertions.assertEquals("Ricardo", pessoa.getNome());
-        Assertions.assertEquals("46477850587", pessoa.getCpf());
-        Assertions.assertEquals("44974001238", pessoa.getTelefone());
-        Assertions.assertEquals("teste@teste.com", pessoa.getEmail());
+        assertThat(pessoa.getId()).isEqualTo(1L);
+        assertThat(pessoa.getNome()).isEqualTo("Ricardo");
+        assertThat(pessoa.getCpf()).isEqualTo("46477850587");
+        assertThat(pessoa.getTelefone()).isEqualTo("44974001238");
+        assertThat(pessoa.getEmail()).isEqualTo("teste@teste.com");
     }
 
     @Test
     public void cpfFormatadoTest() throws ParseException {
         Pessoa pessoa = new Pessoa();
 
-        pessoa.setCpf("46477850842");
+        pessoa.setCpf("46477850848");
 
         String cpfFormatado = Formatter.formatCpf(pessoa.getCpf(), "AAA.AAA.AAA-AA");
 
-        Assertions.assertEquals("464.778.508-42", cpfFormatado);
+        assertThat(cpfFormatado).isEqualTo("464.778.508-48");
     }
 
     @Test
@@ -49,7 +51,7 @@ public class PessoaTest {
 
             Validator.validateCpf(pessoa.getCpf());
         } catch (CpfNullException cpfNullException) {
-            Assertions.assertEquals("Informe um CPF válido", cpfNullException.getMessage());
+            assertThat(cpfNullException.getMessage()).isEqualTo("Informe um CPF válido");
         }
     }
 
@@ -63,7 +65,7 @@ public class PessoaTest {
             String cpfFormatado = Formatter.unformatCpf(pessoa.getCpf());
             Validator.validateCpf(cpfFormatado);
         } catch (CpfInvalidoException cpfInvalidoException) {
-            Assertions.assertEquals("O CPF inserido é inválido", cpfInvalidoException.getMessage());
+            assertThat(cpfInvalidoException.getMessage()).isEqualTo("O CPF inserido é inválido");
         }
     }
 }

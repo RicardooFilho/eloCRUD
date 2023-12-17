@@ -1,32 +1,25 @@
-package br.com.ricardo.eloCRUD.model.repository;
+package br.com.ricardo.eloCRUD.repository;
 
 import br.com.ricardo.eloCRUD.domain.Local;
 import br.com.ricardo.eloCRUD.domain.Pessoa;
-import br.com.ricardo.eloCRUD.repository.LocalRepository;
-import br.com.ricardo.eloCRUD.repository.PessoaRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-
-import java.util.ArrayList;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @ActiveProfiles("test")
-@Sql(scripts = {"/sql/local.sql", "/sql/pessoa.sql"})
+@Sql(scripts = "/sql/local.sql")
 public class LocalRepositoryTest {
 
     @Autowired
     private LocalRepository localRepository;
 
-    @Autowired
-    private PessoaRepository pessoaRepository;
-
     @Test
-    public void buscaLocalPorNomeContaining() {
+    public void buscaLocalPorDescricaoContaining() {
         List<Local> locais = localRepository.findByDescricaoContaining("de");
 
         assertThat(locais).extracting(Local::getId)
@@ -39,16 +32,14 @@ public class LocalRepositoryTest {
         Local local = new Local();
 
         local.setDescricao("Gabinete do Prefeito");
-        local.getPessoas().add(new Pessoa());
+        local.setPessoas(List.of(new Pessoa()));
 
         Local novoLocal = localRepository.save(local);
 
         assertThat(novoLocal).isNotNull();
-        assertThat(novoLocal.getId()).isNotNull();
-        assertThat(novoLocal.getDescricao()).isEqualTo("Gabinente do Prefeito");
-        assertThat(novoLocal.getPessoas()).extracting(Pessoa::getId)
-                .hasSize(1)
-                .containsExactlyInAnyOrder(1L);
+        assertThat(novoLocal.getId()).isNotNull().isEqualTo(1);
+        assertThat(novoLocal.getDescricao()).isEqualTo("Gabinete do Prefeito");
+        assertThat(novoLocal.getPessoas()).hasSize(1);
     }
 
     @Test
@@ -65,7 +56,6 @@ public class LocalRepositoryTest {
 
     @Test
     public void deletaLocalTest() { //delete
-
         localRepository.deleteById(13L);
 
         List<Local> locais = localRepository.findAll();

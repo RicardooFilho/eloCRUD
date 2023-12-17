@@ -3,10 +3,12 @@ package br.com.ricardo.eloCRUD.domain;
 import br.com.ricardo.eloCRUD.enums.SituacaoEnum;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "status")
 @Data
+@EqualsAndHashCode(of = "id")
 public class Status {
 
     @Id
@@ -17,6 +19,7 @@ public class Status {
     @Column(length = 30, nullable = false)
     private String descricao;
 
-//    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private SituacaoEnum situacao;
 }

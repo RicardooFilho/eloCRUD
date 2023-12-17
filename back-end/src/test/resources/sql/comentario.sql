@@ -1,0 +1,3 @@
+INSERT INTO comentario (id, descricao, pessoa_id, data_comentario, tarefa_numero) VALUES (10, 'sdifsadjfhasf', 10, '2023-12-16', 10);
+INSERT INTO comentario (id, descricao, pessoa_id, data_comentario, tarefa_numero) VALUES (11, 'qwopqowqpowqpwoprtew', 11, '2023-12-17', 11);
+INSERT INTO comentario (id, descricao, pessoa_id, data_comentario, tarefa_numero) VALUES (12, 'amosmaosmaosoam', 12, '2023-12-18', 12);

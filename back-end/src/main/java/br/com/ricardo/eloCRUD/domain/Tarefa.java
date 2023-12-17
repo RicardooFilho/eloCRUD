@@ -1,13 +1,17 @@
 package br.com.ricardo.eloCRUD.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.With;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "tarefa")
 @Data
+@EqualsAndHashCode(of = "numero")
 public class Tarefa {
 
     @Id
@@ -20,7 +24,6 @@ public class Tarefa {
 
     @ManyToOne
     @JoinColumn(name = "requerente_id", referencedColumnName = "id", nullable = false)
-//    @Column(name = "requerente_id", nullable = false)
     private Pessoa requerenteId;
 
     @Column(nullable = false)
@@ -28,30 +31,23 @@ public class Tarefa {
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", referencedColumnName = "id", nullable = false)
-//    @Column(name = "categoria_id", nullable = false)
     private Categoria categoriaId;
 
     @Column(nullable = false)
     private String descricao;
 
     @ManyToOne
-    @JoinColumn(name = "requerido_id", referencedColumnName = "id", nullable = false)
-//    @Column(name = "requerido_id", nullable = false)
+    @JoinColumn(name = "requerido_id", referencedColumnName = "id", nullable = true)
     private Pessoa requeridoId;
 
     @ManyToOne
     @JoinColumn(name = "local_destino_id", referencedColumnName = "id", nullable = false)
-//    @Column(name = "local_destino_id", nullable = false)
     private Local localDestinoId;
-
-    @Column(name = "comentario_id")
-    private Comentario comentarioId;
 
     @Column(name = "data_criacao", nullable = false)
     private LocalDate dataCriacao;
 
     @ManyToOne
     @JoinColumn(name = "status_id", referencedColumnName = "id", nullable = false)
-//    @Column(name = "status_id", nullable = false)
     private Status statusId;
 }
