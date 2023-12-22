@@ -48,5 +48,17 @@ class PessoaControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void case2() throws Exception {
+        mockMvc.perform(get("/api/pessoa"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void case3() throws Exception {
+        mockMvc.perform(get("/api/pessoa/1", ));
+    }
+
+
 
 }
