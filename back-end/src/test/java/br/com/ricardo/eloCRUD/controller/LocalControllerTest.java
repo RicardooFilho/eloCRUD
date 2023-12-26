@@ -1,6 +1,6 @@
 package br.com.ricardo.eloCRUD.controller;
 
-import br.com.ricardo.eloCRUD.domain.Pessoa;
+import br.com.ricardo.eloCRUD.domain.Local;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +10,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class PessoaControllerTest {
+class LocalControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -25,64 +26,61 @@ class PessoaControllerTest {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private PessoaController pessoaController;
+    private LocalController localController;
 
     @Test
-    public void pessoaPostTest() throws Exception {
-        Pessoa pessoa = new Pessoa();
+    public void localPostTest() throws Exception {
+        Local local = new Local();
 
-        pessoa.setNome("Ricardo");
-        pessoa.setCpf("46475296025");
-        pessoa.setTelefone("44978554126");
-        pessoa.setEmail("teste@teste.com");
+        local.setDescricao("Gabinete do Prefeito");
 
-        mockMvc.perform(post("/api/pessoa")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(pessoa)))
+        mockMvc.perform(post("/api/local")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(local)))
                 .andExpect(status().isCreated());
     }
 
     @Test
-    public void pessoaGetAllTest() throws Exception {
-        mockMvc.perform(get("/api/pessoa"))
+    public void localGetAllTest() throws Exception {
+        mockMvc.perform(get("/api/local"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void pessoaGetOneTest() throws Exception {
+    public void localGetOneTest() throws Exception {
         Long id = 1L;
 
-        mockMvc.perform(get("/api/pessoa/{id}", id))
+        mockMvc.perform(get("/api/local/{id}", id))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void pessoaPutOneTest() throws Exception {
+    public void localPutTest() throws Exception {
         Long id = 1L;
 
-        String requestBody = "{ \"nome\": \"Ricardo Filho\", \"cpf\": \"46477582649\", \"telefone\": \"44987556528\", \"email\": \"teste.teste@elotech.com\"}";
+        String requestBody = "{ \"descricao\": \"Setor de Agricultura\" }";
 
-        mockMvc.perform(put("/api/pessoa/{id}", id)
+        mockMvc.perform(put("/api/local/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void pessoaDeleteOneTest() throws Exception {
+    public void localDeleteTest() throws Exception {
         Long id = 1L;
 
-        mockMvc.perform(delete("/api/pessoa/{id}", id))
+        mockMvc.perform(delete("/api/local/{id}", id))
                 .andExpect(status().isNoContent());
     }
 
     @Test
-    public void pessoaGetAllDepoisDoDeleteTest() throws Exception {
+    public void localGetDepoisDoDelete() throws Exception {
         Long id = 1L;
 
-        mockMvc.perform(delete("/api/pessoa/{id}", id));
+        mockMvc.perform(delete("/api/local/{id}", id));
 
-        mockMvc.perform(get("/api/pessoa"))
+        mockMvc.perform(get("/api/local"))
                 .andExpect(status().isNoContent());
     }
 

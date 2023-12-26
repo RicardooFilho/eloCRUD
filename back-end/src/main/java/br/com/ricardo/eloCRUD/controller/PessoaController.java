@@ -17,13 +17,21 @@ public class PessoaController {
     private PessoaRepository pessoaRepository;
 
     @GetMapping
-    public  ResponseEntity<List<Pessoa>> todasPessoas() {
-        return ResponseEntity.ok(pessoaRepository.findAll());
+    public  ResponseEntity<List<Pessoa>> PegarTodasPessoas() {
+        List <Pessoa> pessoas = pessoaRepository.findAll();
+
+        if (pessoas.isEmpty()) {
+            return new ResponseEntity<>(pessoas, HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(pessoas, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pessoa> pesssoaPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(pessoaRepository.findById(id).orElseThrow(null));
+    public ResponseEntity<Pessoa> pegarPesssoaPorId(@PathVariable Long id) {
+        Pessoa pessoa = pessoaRepository.findById(id).orElseThrow(null);
+
+        return new ResponseEntity<>(pessoa, HttpStatus.OK);
     }
 
     @PostMapping
@@ -34,7 +42,7 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pessoa> editarPessoa(@PathVariable Long id, @RequestBody Pessoa novaPessoa) {
+    public ResponseEntity<Pessoa> editarPessoaPorId(@PathVariable Long id, @RequestBody Pessoa novaPessoa) {
         Pessoa pessoaSalva = pessoaRepository.findById(id).orElseThrow(null);
 
         pessoaSalva.setNome(novaPessoa.getNome());
@@ -48,7 +56,7 @@ public class PessoaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPessoa(@PathVariable Long id) {
+    public ResponseEntity<Void> deletarPessoaPorId(@PathVariable Long id) {
         pessoaRepository.deleteById(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
