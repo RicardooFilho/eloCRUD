@@ -45,7 +45,7 @@ class PessoaControllerTest {
         mockMvc.perform(post("/api/pessoa")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(pessoa)))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -79,7 +79,7 @@ class PessoaControllerTest {
         Long id = 1L;
 
         mockMvc.perform(delete("/api/pessoa/{id}", id))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 
 }
