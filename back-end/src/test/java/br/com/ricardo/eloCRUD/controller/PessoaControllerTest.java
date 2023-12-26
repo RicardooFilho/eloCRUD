@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,8 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.awt.print.Book;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -34,7 +34,7 @@ class PessoaControllerTest {
     private PessoaController pessoaController;
 
     @Test
-    public void case1() throws Exception {
+    public void pessoaPostTest() throws Exception {
         Pessoa pessoa = new Pessoa();
 
         pessoa.setNome("Ricardo");
@@ -49,16 +49,37 @@ class PessoaControllerTest {
     }
 
     @Test
-    public void case2() throws Exception {
+    public void pessoaGetAllTest() throws Exception {
         mockMvc.perform(get("/api/pessoa"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void case3() throws Exception {
-        mockMvc.perform(get("/api/pessoa/1", ));
+    public void pessoaGetOneTest() throws Exception {
+        Long id = 1L;
+
+        mockMvc.perform(get("/api/pessoa/{id}", id))
+                .andExpect(status().isOk());
     }
 
+    @Test
+    public void pessoaPutOneTest() throws Exception {
+        Long id = 1L;
 
+        String requestBody = "{ \"nome\": \"Ricardo Filho\", \"cpf\": \"46477582649\", \"telefone\": \"44987556528\", \"email\": \"teste.teste@elotech.com\"}";
+
+        mockMvc.perform(put("/api/pessoa/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void pessoaDeleteOneTest() throws Exception {
+        Long id = 1L;
+
+        mockMvc.perform(delete("/api/pessoa/{id}", id))
+                .andExpect(status().isOk());
+    }
 
 }
