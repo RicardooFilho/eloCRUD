@@ -12,7 +12,7 @@ public class Comentario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_comentario")
-    @SequenceGenerator(name = "gen_comentario", sequenceName = "comentario_sequence", initialValue = 1)
+    @SequenceGenerator(name = "gen_comentario", sequenceName = "comentario_sequence", initialValue = 1, allocationSize = 1)
     private Long id;
 
     @Column(length = 200, nullable = false)

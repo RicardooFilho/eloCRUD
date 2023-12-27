@@ -58,6 +58,17 @@ class PessoaControllerTest {
 
     @Test
     public void pessoaPutOneTest() throws Exception {
+        Pessoa pessoa = new Pessoa();
+
+        pessoa.setNome("Ricardo");
+        pessoa.setCpf("46475296025");
+        pessoa.setTelefone("44978554126");
+        pessoa.setEmail("teste@teste.com");
+
+        mockMvc.perform(post("/api/pessoa")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(pessoa)));
+
         Long id = 1L;
 
         String requestBody = "{ \"nome\": \"Ricardo Filho\", \"cpf\": \"46477582649\", \"telefone\": \"44987556528\", \"email\": \"teste.teste@elotech.com\"}";

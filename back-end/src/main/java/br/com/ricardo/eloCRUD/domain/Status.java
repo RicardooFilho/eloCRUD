@@ -13,7 +13,7 @@ public class Status {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_status")
-    @SequenceGenerator(name = "gen_status", sequenceName = "status_sequence", initialValue = 1)
+    @SequenceGenerator(name = "gen_status", sequenceName = "status_sequence", initialValue = 1, allocationSize = 1)
     private Long id;
 
     @Column(length = 30, nullable = false)

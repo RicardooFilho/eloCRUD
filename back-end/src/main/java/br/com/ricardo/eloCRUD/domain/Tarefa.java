@@ -16,7 +16,7 @@ public class Tarefa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_tarefa")
-    @SequenceGenerator(name = "gen_tarefa", sequenceName = "tarefa_sequence", initialValue = 1)
+    @SequenceGenerator(name = "gen_tarefa", sequenceName = "tarefa_sequence", initialValue = 1, allocationSize = 1)
     private Long numero;
 
     @Column(nullable = false)

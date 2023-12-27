@@ -30,7 +30,7 @@
             </column>
         </createTable>
 
-        <createSequence sequenceName="comentario_sequence" startValue="1" incrementBy="50" minValue="1" maxValue="99999"/>
+        <createSequence sequenceName="comentario_sequence" startValue="1" incrementBy="1" minValue="1" maxValue="99999"/>
         
         <addForeignKeyConstraint baseTableName="comentario" 
                                  baseColumnNames="pessoa_id" 

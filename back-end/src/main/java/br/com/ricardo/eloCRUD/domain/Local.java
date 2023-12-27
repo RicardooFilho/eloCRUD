@@ -15,7 +15,7 @@ public class Local {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_local")
-    @SequenceGenerator(sequenceName = "local_sequence", initialValue = 1, name = "gen_local")
+    @SequenceGenerator(sequenceName = "local_sequence", initialValue = 1, name = "gen_local", allocationSize = 1)
     private Long id;
 
     @Column(length = 50, nullable = false)

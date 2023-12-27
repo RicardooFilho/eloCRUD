@@ -24,7 +24,7 @@
             </column>
         </createTable>
 
-        <createSequence sequenceName="status_sequence" startValue="1" incrementBy="50" minValue="1" maxValue="99999"/>
+        <createSequence sequenceName="status_sequence" startValue="1" incrementBy="1" minValue="1" maxValue="99999"/>
     </changeSet>
 
 </databaseChangeLog>
