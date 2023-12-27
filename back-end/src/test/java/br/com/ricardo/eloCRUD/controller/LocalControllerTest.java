@@ -39,7 +39,7 @@ class LocalControllerTest {
         local.setDescricao("Gabinete do Prefeito");
 
         mockMvc.perform(post("/api/local")
-                        .contentType("application/json")
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(local)))
                 .andExpect(status().isCreated());
     }
@@ -75,7 +75,7 @@ class LocalControllerTest {
 
     @Test
     @Order(5)
-    public void localDeleteTest() throws Exception {
+    public void localDeleteOneTest() throws Exception {
         Long id = 1L;
 
         mockMvc.perform(delete("/api/local/{id}", id))
@@ -85,10 +85,6 @@ class LocalControllerTest {
     @Test
     @Order(6)
     public void localGetDepoisDoDelete() throws Exception {
-//        Long id = 1L;
-//
-//        mockMvc.perform(delete("/api/local/{id}", id));
-
         mockMvc.perform(get("/api/local"))
                 .andExpect(status().isNoContent());
     }

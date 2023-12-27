@@ -17,7 +17,7 @@ public class PessoaController {
     private PessoaRepository pessoaRepository;
 
     @GetMapping
-    public  ResponseEntity<List<Pessoa>> PegarTodasPessoas() {
+    public  ResponseEntity<List<Pessoa>> pegarTodasPessoas() {
         List <Pessoa> pessoas = pessoaRepository.findAll();
 
         if (pessoas.isEmpty()) {

@@ -1,6 +1,6 @@
 package br.com.ricardo.eloCRUD.controller;
 
-import br.com.ricardo.eloCRUD.domain.Pessoa;
+import br.com.ricardo.eloCRUD.domain.Categoria;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -14,13 +14,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PessoaControllerTest {
+class CategoriaControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -29,48 +29,48 @@ class PessoaControllerTest {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private PessoaController pessoaController;
+    private CategoriaController categoriaController;
 
     @Test
     @Order(1)
-    public void pessoaPostTest() throws Exception {
-        Pessoa pessoa = new Pessoa();
+    public void categoriaPostTest() throws Exception {
+        Categoria categoria = new Categoria();
 
-        pessoa.setNome("Ricardo");
-        pessoa.setCpf("46475296025");
-        pessoa.setTelefone("44978554126");
-        pessoa.setEmail("teste@teste.com");
+        categoria.setDescricao("Na fila");
 
-        mockMvc.perform(post("/api/pessoa")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(pessoa)))
+        mockMvc.perform(post("/api/categorias")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(categoria)))
                 .andExpect(status().isCreated());
     }
 
     @Test
     @Order(2)
-    public void pessoaGetAllTest() throws Exception {
-        mockMvc.perform(get("/api/pessoa"))
-                .andExpect(status().isOk());
+    public void categoriaGetAllTest() throws Exception{
+        mockMvc.perform(get("/api/categorias"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath( "$[0].descricao").value("xxx"))
+                .andExpect(jsonPath( "$[0].descricao").value("xxxxxx"));
     }
 
     @Test
     @Order(3)
-    public void pessoaGetOneTest() throws Exception {
+    public void categoriaGetOneTest() throws Exception {
         Long id = 1L;
 
-        mockMvc.perform(get("/api/pessoa/{id}", id))
+        mockMvc.perform(get("/api/categorias/{id}", id))
                 .andExpect(status().isOk());
     }
 
     @Test
     @Order(4)
-    public void pessoaPutTest() throws Exception {
+    public void categoriaPutTest() throws Exception {
         Long id = 1L;
 
-        String requestBody = "{ \"nome\": \"Ricardo Filho\", \"cpf\": \"46477582649\", \"telefone\": \"44987556528\", \"email\": \"teste.teste@elotech.com\"}";
+        String requestBody = "{ \"descricao\": \"Em análise\" }";
 
-        mockMvc.perform(put("/api/pessoa/{id}", id)
+        mockMvc.perform(put("/api/categorias/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isOk());
@@ -78,17 +78,17 @@ class PessoaControllerTest {
 
     @Test
     @Order(5)
-    public void pessoaDeleteOneTest() throws Exception {
+    public void categoriaDeleteTest() throws Exception {
         Long id = 1L;
 
-        mockMvc.perform(delete("/api/pessoa/{id}", id))
+        mockMvc.perform(delete("/api/categorias/{id}", id))
                 .andExpect(status().isNoContent());
     }
 
     @Test
     @Order(6)
-    public void pessoaGetAllDepoisDoDeleteTest() throws Exception {
-        mockMvc.perform(get("/api/pessoa"))
+    public void categoriaGetDepoisDoDeleteTest() throws Exception {
+        mockMvc.perform(get("/api/categorias"))
                 .andExpect(status().isNoContent());
     }
 

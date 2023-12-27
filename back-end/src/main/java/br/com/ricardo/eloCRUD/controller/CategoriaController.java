@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categoria")
+@RequestMapping("/api/categorias")
 public class CategoriaController {
 
     @Autowired
@@ -21,10 +21,11 @@ public class CategoriaController {
         List<Categoria> categorias = categoriaRepository.findAll();
 
         if (categorias.isEmpty()) {
-            return new ResponseEntity<>(categorias, HttpStatus.NO_CONTENT);
+                    new ResponseEntity<>(categorias, HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<>(categorias, HttpStatus.OK);
+        return ResponseEntity.ok(categorias);
+
     }
 
     @GetMapping("/{id}")
@@ -39,5 +40,23 @@ public class CategoriaController {
         Categoria categoria = categoriaRepository.save(novaCategoria);
 
         return new ResponseEntity<>(categoria, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Categoria> editarCategoria(@PathVariable Long id, @RequestBody Categoria novaCategoria) {
+        Categoria categoriaSalva = categoriaRepository.findById(id).orElseThrow(null);
+
+        categoriaSalva.setDescricao(novaCategoria.getDescricao());
+
+        Categoria categoria = categoriaRepository.save(categoriaSalva);
+
+        return new ResponseEntity<>(categoria, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarCategoria (@PathVariable Long id) {
+        categoriaRepository.deleteById(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -43,7 +43,7 @@ public class LocalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Local> editarLocal(@PathVariable Long id, @RequestBody Local novoLocal) {
+    public ResponseEntity<Local> editarLocalPorId(@PathVariable Long id, @RequestBody Local novoLocal) {
         Local localSalvo = localRepository.findById(id).orElseThrow(null);
 
         localSalvo.setDescricao(novoLocal.getDescricao());
@@ -54,7 +54,7 @@ public class LocalController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarLocal(@PathVariable Long id) {
+    public ResponseEntity<Void> deletarLocalPorId(@PathVariable Long id) {
         localRepository.deleteById(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
