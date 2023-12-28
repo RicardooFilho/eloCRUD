@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tarefa")
+@RequestMapping("/api/tarefas")
 public class TarefaController {
 
     @Autowired
@@ -20,20 +20,12 @@ public class TarefaController {
 
     @GetMapping
     public ResponseEntity<List<Tarefa>> pegarTodasTarefas() {
-        List<Tarefa> tarefas = tarefaRepository.findAll();
-
-        if (tarefas.isEmpty()) {
-            return new ResponseEntity<>(tarefas, HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(tarefas, HttpStatus.OK);
+        return ResponseEntity.ok(tarefaRepository.findAll());
     }
 
     @GetMapping("/{numero}")
     public ResponseEntity<Tarefa> pegarTarefaPorId(@PathVariable Long numero) {
-        Tarefa tarefa = tarefaRepository.findById(numero).orElse(null);
-
-        return new ResponseEntity<>(tarefa, HttpStatus.OK);
+        return ResponseEntity.ok(tarefaRepository.findById(numero).orElse(null));
     }
 
     @PostMapping
@@ -43,10 +35,25 @@ public class TarefaController {
         return new ResponseEntity<>(tarefa, HttpStatus.CREATED);
     }
 
-//    @PutMapping("/{numero}")
-//    public ResponseEntity<Tarefa> editarTarefa(@PathVariable Long numero, @RequestBody Tarefa novaTarefa) {
-//        Tarefa tarefaSalva = tarefaRepository.findById(numero).orElseThrow(null);
-//
-//      //  tarefaSalva.set
-//    }
+    @PutMapping("/{numero}")
+    public ResponseEntity<Tarefa> editarTarefaPorId(@PathVariable Long numero, @RequestBody Tarefa novaTarefa) {
+        Tarefa tarefaSalva = tarefaRepository.findById(numero).orElseThrow(null);
+
+        tarefaSalva.setDescricao(novaTarefa.getDescricao());
+        tarefaSalva.setCategoriaId(novaTarefa.getCategoriaId());
+        tarefaSalva.setTitulo(novaTarefa.getTitulo());
+        tarefaSalva.setLocalDestinoId(novaTarefa.getLocalDestinoId());
+        tarefaSalva.setRequerenteId(novaTarefa.getRequerenteId());
+        tarefaSalva.setRequeridoId(novaTarefa.getRequeridoId());
+        tarefaSalva.setStatusId(novaTarefa.getStatusId());
+
+        return ResponseEntity.ok(tarefaRepository.save(tarefaSalva));
+    }
+
+    @DeleteMapping("/{numero}")
+    public ResponseEntity<Void> deletarTarefaPorId(@PathVariable Long numero) {
+        tarefaRepository.deleteById(numero);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

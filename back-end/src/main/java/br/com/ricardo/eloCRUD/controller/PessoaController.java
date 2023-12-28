@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pessoa")
+@RequestMapping("/api/pessoas")
 public class PessoaController {
 
     @Autowired
@@ -18,20 +18,12 @@ public class PessoaController {
 
     @GetMapping
     public  ResponseEntity<List<Pessoa>> pegarTodasPessoas() {
-        List <Pessoa> pessoas = pessoaRepository.findAll();
-
-        if (pessoas.isEmpty()) {
-            return new ResponseEntity<>(pessoas, HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(pessoas, HttpStatus.OK);
+        return ResponseEntity.ok(pessoaRepository.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Pessoa> pegarPesssoaPorId(@PathVariable Long id) {
-        Pessoa pessoa = pessoaRepository.findById(id).orElseThrow(null);
-
-        return new ResponseEntity<>(pessoa, HttpStatus.OK);
+        return ResponseEntity.ok(pessoaRepository.findById(id).orElse(null));
     }
 
     @PostMapping
@@ -50,9 +42,7 @@ public class PessoaController {
         pessoaSalva.setTelefone(novaPessoa.getTelefone());
         pessoaSalva.setEmail(novaPessoa.getEmail());
 
-        Pessoa pessoa = pessoaRepository.save(pessoaSalva);
-
-        return new ResponseEntity<>(pessoa, HttpStatus.OK);
+        return ResponseEntity.ok(pessoaRepository.save(pessoaSalva));
     }
 
     @DeleteMapping("/{id}")

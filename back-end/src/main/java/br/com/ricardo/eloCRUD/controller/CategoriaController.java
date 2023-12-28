@@ -18,21 +18,12 @@ public class CategoriaController {
 
     @GetMapping
     public ResponseEntity<List<Categoria>> pegarTodasCategorias() {
-        List<Categoria> categorias = categoriaRepository.findAll();
-
-        if (categorias.isEmpty()) {
-                    new ResponseEntity<>(categorias, HttpStatus.NO_CONTENT);
-        }
-
-        return ResponseEntity.ok(categorias);
-
+        return ResponseEntity.ok(categoriaRepository.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Categoria> pegarCategoriaPorId(@PathVariable Long id) {
-        Categoria categoria = categoriaRepository.findById(id).orElse(null);
-
-        return new ResponseEntity<>(categoria, HttpStatus.OK);
+        return ResponseEntity.ok(categoriaRepository.findById(id).orElse(null));
     }
 
     @PostMapping
@@ -43,18 +34,16 @@ public class CategoriaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Categoria> editarCategoria(@PathVariable Long id, @RequestBody Categoria novaCategoria) {
+    public ResponseEntity<Categoria> editarCategoriaPorId(@PathVariable Long id, @RequestBody Categoria novaCategoria) {
         Categoria categoriaSalva = categoriaRepository.findById(id).orElseThrow(null);
 
         categoriaSalva.setDescricao(novaCategoria.getDescricao());
 
-        Categoria categoria = categoriaRepository.save(categoriaSalva);
-
-        return new ResponseEntity<>(categoria, HttpStatus.OK);
+        return ResponseEntity.ok(categoriaRepository.save(categoriaSalva));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarCategoria (@PathVariable Long id) {
+    public ResponseEntity<Void> deletarCategoriaPorId(@PathVariable Long id) {
         categoriaRepository.deleteById(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

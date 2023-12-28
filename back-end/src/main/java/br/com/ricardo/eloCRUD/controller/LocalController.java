@@ -1,7 +1,6 @@
 package br.com.ricardo.eloCRUD.controller;
 
 import br.com.ricardo.eloCRUD.domain.Local;
-import br.com.ricardo.eloCRUD.domain.Pessoa;
 import br.com.ricardo.eloCRUD.repository.LocalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/local")
+@RequestMapping("/api/locais")
 public class LocalController {
 
     @Autowired
@@ -19,20 +18,12 @@ public class LocalController {
 
     @GetMapping
     public ResponseEntity<List<Local>> pegarTodosLocais() {
-        List<Local> locais = localRepository.findAll();
-
-        if (locais.isEmpty()) {
-            return new ResponseEntity<>(locais, HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(locais, HttpStatus.OK);
+        return ResponseEntity.ok(localRepository.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Local> pegarLocalPorId(@PathVariable Long id) {
-        Local local = localRepository.findById(id).orElse(null);
-
-        return new ResponseEntity<>(local, HttpStatus.OK);
+        return ResponseEntity.ok(localRepository.findById(id).orElse(null));
     }
 
     @PostMapping
@@ -48,9 +39,7 @@ public class LocalController {
 
         localSalvo.setDescricao(novoLocal.getDescricao());
 
-        Local local = localRepository.save(localSalvo);
-
-        return new ResponseEntity<>(local, HttpStatus.OK);
+        return ResponseEntity.ok(localRepository.save(localSalvo));
     }
 
     @DeleteMapping("/{id}")

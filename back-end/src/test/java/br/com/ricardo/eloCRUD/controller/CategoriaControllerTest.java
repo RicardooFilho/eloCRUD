@@ -36,10 +36,11 @@ class CategoriaControllerTest {
     public void categoriaPostTest() throws Exception {
         Categoria categoria = new Categoria();
 
+        categoria.setId(1L);
         categoria.setDescricao("Na fila");
 
         mockMvc.perform(post("/api/categorias")
-                .contentType("application/json")
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(categoria)))
                 .andExpect(status().isCreated());
     }
@@ -48,10 +49,10 @@ class CategoriaControllerTest {
     @Order(2)
     public void categoriaGetAllTest() throws Exception{
         mockMvc.perform(get("/api/categorias"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath( "$[0].descricao").value("xxx"))
-                .andExpect(jsonPath( "$[0].descricao").value("xxxxxx"));
+                .andExpectAll(status().isOk(),
+                        content().contentType(MediaType.APPLICATION_JSON),
+                        jsonPath("$[0].descricao").value("Na fila"),
+                        jsonPath("$[0].id").value(1));
     }
 
     @Test
@@ -60,7 +61,10 @@ class CategoriaControllerTest {
         Long id = 1L;
 
         mockMvc.perform(get("/api/categorias/{id}", id))
-                .andExpect(status().isOk());
+                .andExpectAll(content().contentType(MediaType.APPLICATION_JSON),
+                        status().isOk(),
+                        jsonPath("$.descricao").value("Na fila"));
+                        jsonPath("$.id").value(1);
     }
 
     @Test
@@ -78,18 +82,22 @@ class CategoriaControllerTest {
 
     @Test
     @Order(5)
+    public void categoriaGetDepoisDoPutTest() throws Exception {
+        Long id = 1L;
+
+        mockMvc.perform(get("/api/categorias/{id}", id))
+                .andExpectAll(content().contentType(MediaType.APPLICATION_JSON),
+                        status().isOk(),
+                        jsonPath("$.id").value(1),
+                        jsonPath("$.descricao").value("Em análise"));
+    }
+
+    @Test
+    @Order(6)
     public void categoriaDeleteTest() throws Exception {
         Long id = 1L;
 
         mockMvc.perform(delete("/api/categorias/{id}", id))
                 .andExpect(status().isNoContent());
     }
-
-    @Test
-    @Order(6)
-    public void categoriaGetDepoisDoDeleteTest() throws Exception {
-        mockMvc.perform(get("/api/categorias"))
-                .andExpect(status().isNoContent());
-    }
-
 }

@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -36,9 +36,10 @@ class LocalControllerTest {
     public void localPostTest() throws Exception {
         Local local = new Local();
 
+        local.setId(1L);
         local.setDescricao("Gabinete do Prefeito");
 
-        mockMvc.perform(post("/api/local")
+        mockMvc.perform(post("/api/locais")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(local)))
                 .andExpect(status().isCreated());
@@ -47,8 +48,11 @@ class LocalControllerTest {
     @Test
     @Order(2)
     public void localGetAllTest() throws Exception {
-        mockMvc.perform(get("/api/local"))
-                .andExpect(status().isOk());
+        mockMvc.perform(get("/api/locais"))
+                .andExpectAll(status().isOk(),
+                        content().contentType(MediaType.APPLICATION_JSON),
+                        jsonPath("$[0].id").value(1),
+                        jsonPath("$[0].descricao").value("Gabinete do Prefeito"));
     }
 
     @Test
@@ -56,8 +60,11 @@ class LocalControllerTest {
     public void localGetOneTest() throws Exception {
         Long id = 1L;
 
-        mockMvc.perform(get("/api/local/{id}", id))
-                .andExpect(status().isOk());
+        mockMvc.perform(get("/api/locais/{id}", id))
+                .andExpectAll(status().isOk(),
+                        content().contentType(MediaType.APPLICATION_JSON),
+                        jsonPath("$.id").value(1),
+                        jsonPath("$.descricao").value("Gabinete do Prefeito"));
     }
 
     @Test
@@ -67,7 +74,7 @@ class LocalControllerTest {
 
         String requestBody = "{ \"descricao\": \"Setor de Agricultura\"}";
 
-        mockMvc.perform(put("/api/local/{id}", id)
+        mockMvc.perform(put("/api/locais/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isOk());
@@ -75,17 +82,24 @@ class LocalControllerTest {
 
     @Test
     @Order(5)
-    public void localDeleteOneTest() throws Exception {
+    public void localGetDepoisDoPutTest() throws Exception {
         Long id = 1L;
 
-        mockMvc.perform(delete("/api/local/{id}", id))
-                .andExpect(status().isNoContent());
+        mockMvc.perform(get("/api/locais/{id}", id))
+                .andExpectAll(content().contentType(MediaType.APPLICATION_JSON),
+                        status().isOk(),
+                        jsonPath("$.id").value(1),
+                        jsonPath("$.descricao").value("Setor de Agricultura"));
     }
 
     @Test
     @Order(6)
-    public void localGetDepoisDoDelete() throws Exception {
-        mockMvc.perform(get("/api/local"))
+    public void localDeleteOneTest() throws Exception {
+        Long id = 1L;
+
+        mockMvc.perform(delete("/api/locais/{id}", id))
                 .andExpect(status().isNoContent());
     }
+
+
 }
