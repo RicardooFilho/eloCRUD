@@ -2,9 +2,11 @@ package br.com.ricardo.eloCRUD.controller;
 
 import br.com.ricardo.eloCRUD.domain.*;
 import br.com.ricardo.eloCRUD.enums.SituacaoEnum;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,8 +15,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -42,7 +44,7 @@ class TarefaControllerTest {
         Local local = new Local();
         Status status = new Status();
 
-        categoria.setId(1L);
+        categoria.setId(2L);
         categoria.setDescricao("Na fila");
 
         pessoa1.setId(1L);
@@ -57,7 +59,7 @@ class TarefaControllerTest {
         pessoa2.setTelefone("88796332287");
         pessoa2.setEmail("teste@teste.com.br");
 
-        local.setId(1L);
+        local.setId(2L);
         local.setDescricao("Setor Administrativo");
 
         status.setId(1L);
@@ -97,6 +99,7 @@ class TarefaControllerTest {
         tarefa.setDataCriacao(LocalDate.now());
         tarefa.setStatusId(status);
 
+
         mockMvc.perform(post("/api/tarefas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(tarefa)))
@@ -113,10 +116,10 @@ class TarefaControllerTest {
                         jsonPath("$[0].exercicio").value(2023),
                         jsonPath("$[0].requerenteId.id").value(1),
                         jsonPath("$[0].titulo").value("Título Foda"),
-                        jsonPath("$[0].categoriaId.id").value(1),
+                        jsonPath("$[0].categoriaId.id").value(2),
                         jsonPath("$[0].descricao").value("Descrição Foda"),
                         jsonPath("$[0].requeridoId.id").value(2),
-                        jsonPath("$[0].localDestinoId.id").value(1),
+                        jsonPath("$[0].localDestinoId.id").value(2),
                         jsonPath("$[0].dataCriacao").value(LocalDate.now().toString()),
                         jsonPath("$[0].statusId.id").value(1));
     }
@@ -133,10 +136,10 @@ class TarefaControllerTest {
                         jsonPath("$.exercicio").value(2023),
                         jsonPath("$.requerenteId.id").value(1),
                         jsonPath("$.titulo").value("Título Foda"),
-                        jsonPath("$.categoriaId.id").value(1),
+                        jsonPath("$.categoriaId.id").value(2),
                         jsonPath("$.descricao").value("Descrição Foda"),
                         jsonPath("$.requeridoId.id").value(2),
-                        jsonPath("$.localDestinoId.id").value(1),
+                        jsonPath("$.localDestinoId.id").value(2),
                         jsonPath("$.dataCriacao").value(LocalDate.now().toString()),
                         jsonPath("$.statusId.id").value(1));
     }
@@ -149,10 +152,10 @@ class TarefaControllerTest {
         String requestBody = "{" +
                 "\"requerenteId\": { \"id\": \"1\" }," +
                 "\"titulo\": \"Título Ruim\"," +
-                "\"categoriaId\": { \"id\": \"1\" }," +
+                "\"categoriaId\": { \"id\": \"2\" }," +
                 "\"descricao\": \"Descrição Ruim\"," +
                 "\"requeridoId\": { \"id\": \"2\" }," +
-                "\"localDestinoId\": { \"id\": \"1\" }," +
+                "\"localDestinoId\": { \"id\": \"2\" }," +
                 "\"statusId\": { \"id\": \"1\" }" +
                 "}";
 
@@ -175,10 +178,10 @@ class TarefaControllerTest {
                         jsonPath("$.exercicio").value(2023),
                         jsonPath("$.requerenteId.id").value(1),
                         jsonPath("$.titulo").value("Título Ruim"),
-                        jsonPath("$.categoriaId.id").value(1),
+                        jsonPath("$.categoriaId.id").value(2),
                         jsonPath("$.descricao").value("Descrição Ruim"),
                         jsonPath("$.requeridoId.id").value(2),
-                        jsonPath("$.localDestinoId.id").value(1),
+                        jsonPath("$.localDestinoId.id").value(2),
                         jsonPath("$.dataCriacao").value(LocalDate.now().toString()),
                         jsonPath("$.statusId.id").value(1));
     }
