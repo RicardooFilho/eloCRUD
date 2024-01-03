@@ -44,7 +44,7 @@ class TarefaControllerTest {
         Local local = new Local();
         Status status = new Status();
 
-        categoria.setId(2L);
+        categoria.setId(1L);
         categoria.setDescricao("Na fila");
 
         pessoa1.setId(1L);
@@ -116,7 +116,7 @@ class TarefaControllerTest {
                         jsonPath("$[0].exercicio").value(2023),
                         jsonPath("$[0].requerenteId.id").value(1),
                         jsonPath("$[0].titulo").value("Título Foda"),
-                        jsonPath("$[0].categoriaId.id").value(2),
+                        jsonPath("$[0].categoriaId.id").value(1),
                         jsonPath("$[0].descricao").value("Descrição Foda"),
                         jsonPath("$[0].requeridoId.id").value(2),
                         jsonPath("$[0].localDestinoId.id").value(2),
@@ -136,7 +136,7 @@ class TarefaControllerTest {
                         jsonPath("$.exercicio").value(2023),
                         jsonPath("$.requerenteId.id").value(1),
                         jsonPath("$.titulo").value("Título Foda"),
-                        jsonPath("$.categoriaId.id").value(2),
+                        jsonPath("$.categoriaId.id").value(1),
                         jsonPath("$.descricao").value("Descrição Foda"),
                         jsonPath("$.requeridoId.id").value(2),
                         jsonPath("$.localDestinoId.id").value(2),
@@ -152,7 +152,7 @@ class TarefaControllerTest {
         String requestBody = "{" +
                 "\"requerenteId\": { \"id\": \"1\" }," +
                 "\"titulo\": \"Título Ruim\"," +
-                "\"categoriaId\": { \"id\": \"2\" }," +
+                "\"categoriaId\": { \"id\": \"1\" }," +
                 "\"descricao\": \"Descrição Ruim\"," +
                 "\"requeridoId\": { \"id\": \"2\" }," +
                 "\"localDestinoId\": { \"id\": \"2\" }," +
@@ -178,7 +178,7 @@ class TarefaControllerTest {
                         jsonPath("$.exercicio").value(2023),
                         jsonPath("$.requerenteId.id").value(1),
                         jsonPath("$.titulo").value("Título Ruim"),
-                        jsonPath("$.categoriaId.id").value(2),
+                        jsonPath("$.categoriaId.id").value(1),
                         jsonPath("$.descricao").value("Descrição Ruim"),
                         jsonPath("$.requeridoId.id").value(2),
                         jsonPath("$.localDestinoId.id").value(2),
