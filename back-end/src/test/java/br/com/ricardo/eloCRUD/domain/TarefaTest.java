@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class TarefaTest {
 
@@ -15,7 +14,7 @@ class TarefaTest {
 
         tarefa.setNumero(1L);
         tarefa.setExercicio(2023);
-        tarefa.setRequerenteId(new Pessoa());
+        tarefa.setRequerente(new Pessoa());
         tarefa.setTitulo("BUG");
         tarefa.setCategoriaId(new Categoria());
         tarefa.setDescricao("Foi encontrado um BUG no OXY");
@@ -26,7 +25,7 @@ class TarefaTest {
 
         assertThat(tarefa.getNumero()).isEqualTo(1L);
         assertThat(tarefa.getExercicio()).isEqualTo(2023);
-        assertThat(tarefa.getRequerenteId()).isEqualTo(new Pessoa());
+        assertThat(tarefa.getRequerente()).isEqualTo(new Pessoa());
         assertThat(tarefa.getTitulo()).isEqualTo("BUG");
         assertThat(tarefa.getCategoriaId()).isEqualTo(new Categoria());
         assertThat(tarefa.getDescricao()).isEqualTo("Foi encontrado um BUG no OXY");

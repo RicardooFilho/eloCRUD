@@ -1,10 +1,8 @@
 package br.com.ricardo.eloCRUD.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.With;
 
 import java.time.LocalDate;
 
@@ -24,7 +22,7 @@ public class Tarefa {
 
     @ManyToOne
     @JoinColumn(name = "requerente_id", referencedColumnName = "id", nullable = false)
-    private Pessoa requerenteId;
+    private Pessoa requerente;
 
     @Column(nullable = false)
     private String titulo;

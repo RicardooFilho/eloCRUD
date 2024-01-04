@@ -45,7 +45,7 @@ public class TarefaRepositoryTest {
         status.setId(10L);
 
         tarefa.setExercicio(2023);
-        tarefa.setRequerenteId(pessoa1);
+        tarefa.setRequerente(pessoa1);
         tarefa.setTitulo("Empenho sem número");
         tarefa.setCategoriaId(categoria);
         tarefa.setDescricao("Foi verificado que alguns empenhos estão sem número");
@@ -59,7 +59,7 @@ public class TarefaRepositoryTest {
         assertThat(tarefaSalva).isNotNull();
         assertThat(tarefaSalva.getNumero()).isEqualTo(1L);
         assertThat(tarefaSalva.getExercicio()).isEqualTo(2023);
-        assertThat(tarefaSalva.getRequerenteId()).isEqualTo(pessoa1);
+        assertThat(tarefaSalva.getRequerente()).isEqualTo(pessoa1);
         assertThat(tarefaSalva.getTitulo()).isEqualTo("Empenho sem número");
         assertThat(tarefaSalva.getCategoriaId()).isEqualTo(categoria);
         assertThat(tarefaSalva.getDescricao()).isEqualTo("Foi verificado que alguns empenhos estão sem número");
@@ -90,7 +90,7 @@ public class TarefaRepositoryTest {
         assertThat(tarefaAtualizada).isNotNull();
         assertThat(tarefaAtualizada.getNumero()).isEqualTo(10L);
         assertThat(tarefaAtualizada.getExercicio()).isEqualTo(2023);
-        assertThat(tarefaAtualizada.getRequerenteId()).isEqualTo(pessoa1);
+        assertThat(tarefaAtualizada.getRequerente()).isEqualTo(pessoa1);
         assertThat(tarefaAtualizada.getTitulo()).isEqualTo("Bug no OXY");
         assertThat(tarefaAtualizada.getCategoriaId()).isEqualTo(categoria);
         assertThat(tarefaAtualizada.getDescricao()).isEqualTo("Módulo ARR");

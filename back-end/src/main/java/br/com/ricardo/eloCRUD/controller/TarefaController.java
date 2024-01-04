@@ -4,10 +4,8 @@ import br.com.ricardo.eloCRUD.domain.Tarefa;
 import br.com.ricardo.eloCRUD.repository.TarefaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -43,7 +41,7 @@ public class TarefaController {
         tarefaSalva.setCategoriaId(novaTarefa.getCategoriaId());
         tarefaSalva.setTitulo(novaTarefa.getTitulo());
         tarefaSalva.setLocalDestinoId(novaTarefa.getLocalDestinoId());
-        tarefaSalva.setRequerenteId(novaTarefa.getRequerenteId());
+        tarefaSalva.setRequerente(novaTarefa.getRequerente());
         tarefaSalva.setRequeridoId(novaTarefa.getRequeridoId());
         tarefaSalva.setStatusId(novaTarefa.getStatusId());
 

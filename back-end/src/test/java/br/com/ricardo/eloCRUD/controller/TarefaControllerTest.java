@@ -89,7 +89,7 @@ class TarefaControllerTest {
 
         tarefa.setNumero(1L);
         tarefa.setExercicio(2023);
-        tarefa.setRequerenteId(pessoa1);
+        tarefa.setRequerente(pessoa1);
         tarefa.setTitulo("Título Foda");
         tarefa.setCategoriaId(categoria);
         tarefa.setDescricao("Descrição Foda");

@@ -2,7 +2,7 @@ package br.com.ricardo.eloCRUD.adapter;
 
 public interface Adapter<Dto, Entity> {
 
-    Dto toEntity(Entity entity);
+    Dto toDto(Entity entity);
 
-    Entity toDto(Dto dto);
+    Entity toEntity(Dto dto);
 }

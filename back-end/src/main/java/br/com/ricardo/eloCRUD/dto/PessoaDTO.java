@@ -1,33 +1,30 @@
 package br.com.ricardo.eloCRUD.dto;
 
-import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class PessoaDTO {
 
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Insira um nome")
     private String nome;
 
-    @NotBlank
+    @NotBlank(message = "Insira um CPF")
+    @CPF(message = "CPF inválido")
     private String cpf;
 
-    @NotBlank
+    @NotBlank(message = "Insira um telefone")
     private String telefone;
 
-    @NotBlank
+    @NotBlank(message = "Insira um e-mail")
+    @Email(message = "E-mail inválido")
     private String email;
-
-    public PessoaDTO(Long id, String nome, String cpf, String telefone, String email) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.email = email;
-    }
 }

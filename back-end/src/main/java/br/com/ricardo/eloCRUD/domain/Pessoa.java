@@ -1,8 +1,10 @@
 package br.com.ricardo.eloCRUD.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
 @Table(name = "pessoa")
 @Data
 @EqualsAndHashCode(of = "id")
+@NoArgsConstructor
 public class Pessoa {
 
     @Id
@@ -34,4 +37,12 @@ public class Pessoa {
             joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "local_id", referencedColumnName = "id"))
     private List<Local> locais;
+
+    public Pessoa(Long id, String nome, String cpf, String telefone, String email) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.email = email;
+    }
 }

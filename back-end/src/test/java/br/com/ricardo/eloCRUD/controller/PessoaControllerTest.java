@@ -1,11 +1,14 @@
 package br.com.ricardo.eloCRUD.controller;
 
+import br.com.ricardo.eloCRUD.adapter.PessoaAdapter;
 import br.com.ricardo.eloCRUD.domain.Pessoa;
+import br.com.ricardo.eloCRUD.dto.PessoaDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,17 +37,17 @@ class PessoaControllerTest {
     @Test
     @Order(1)
     public void pessoaPostTest() throws Exception {
-        Pessoa pessoa = new Pessoa();
+        PessoaDTO pessoaDto = new PessoaDTO();
 
-        pessoa.setId(1L);
-        pessoa.setNome("Ricardo");
-        pessoa.setCpf("46475296025");
-        pessoa.setTelefone("44978554126");
-        pessoa.setEmail("teste@teste.com");
+        pessoaDto.setId(1L);
+        pessoaDto.setNome("Ricardo");
+        pessoaDto.setCpf("46475296025");
+        pessoaDto.setTelefone("44978554126");
+        pessoaDto.setEmail("teste@teste.com");
 
         mockMvc.perform(post("/api/pessoas")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(pessoa)))
+                .content(objectMapper.writeValueAsString(pessoaDto)))
                 .andExpect(status().isCreated());
     }
 
@@ -54,11 +57,11 @@ class PessoaControllerTest {
         mockMvc.perform(get("/api/pessoas"))
                 .andExpectAll(content().contentType(MediaType.APPLICATION_JSON),
                         status().isOk(),
-                        jsonPath("$[0].id").value(1),
-                        jsonPath("$[0].nome").value("Ricardo"),
-                        jsonPath("$[0].cpf").value("46475296025"),
-                        jsonPath("$[0].telefone").value("44978554126"),
-                        jsonPath("$[0].email").value("teste@teste.com"));
+                        jsonPath("$.content[0].id").value(1),
+                        jsonPath("$.content[0].nome").value("Ricardo"),
+                        jsonPath("$.content[0].cpf").value("46475296025"),
+                        jsonPath("$.content[0].telefone").value("44978554126"),
+                        jsonPath("$.content[0].email").value("teste@teste.com"));
     }
 
     @Test
