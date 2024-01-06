@@ -4,13 +4,16 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "local")
 @Data
 @EqualsAndHashCode(of = "id")
+@NoArgsConstructor
 public class Local {
 
     @Id
@@ -22,5 +25,10 @@ public class Local {
     private String descricao;
 
     @ManyToMany(mappedBy = "locais")
-    private List<Pessoa> pessoas;
+    private List<Pessoa> pessoas = new ArrayList<Pessoa>();
+
+    public Local(Long id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 }

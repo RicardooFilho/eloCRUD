@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -36,7 +37,7 @@ public class Pessoa {
     @JoinTable(name = "pessoa_local",
             joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "local_id", referencedColumnName = "id"))
-    private List<Local> locais;
+    private List<Local> locais = new ArrayList<Local>();
 
     public Pessoa(Long id, String nome, String cpf, String telefone, String email) {
         this.id = id;

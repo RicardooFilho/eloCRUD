@@ -22,6 +22,7 @@ public class PessoaAdapter implements Adapter<PessoaDTO, Pessoa>{
                             pessoa.getNome(),
                             pessoa.getCpf(),
                             pessoa.getTelefone(),
-                            pessoa.getEmail());
+                            pessoa.getEmail(),
+                            pessoa.getLocais());
     }
 }

@@ -53,6 +53,7 @@ public class PessoaController {
         pessoaSalva.setCpf(novaPessoa.getCpf());
         pessoaSalva.setTelefone(novaPessoa.getTelefone());
         pessoaSalva.setEmail(novaPessoa.getEmail());
+        pessoaSalva.setLocais(novaPessoa.getLocais());
 
         PessoaDTO pessoaDtoSalva = pessoaAdapter.toDto(pessoaRepository.save(pessoaSalva));
 
