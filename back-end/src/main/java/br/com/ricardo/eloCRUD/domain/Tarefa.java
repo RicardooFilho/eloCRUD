@@ -3,6 +3,7 @@ package br.com.ricardo.eloCRUD.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @Table(name = "tarefa")
 @Data
 @EqualsAndHashCode(of = "numero")
+@NoArgsConstructor
 public class Tarefa {
 
     @Id
@@ -29,23 +31,25 @@ public class Tarefa {
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", referencedColumnName = "id", nullable = false)
-    private Categoria categoriaId;
+    private Categoria categoria;
 
     @Column(nullable = false)
     private String descricao;
 
     @ManyToOne
     @JoinColumn(name = "requerido_id", referencedColumnName = "id", nullable = true)
-    private Pessoa requeridoId;
+    private Pessoa requerido;
 
     @ManyToOne
     @JoinColumn(name = "local_destino_id", referencedColumnName = "id", nullable = false)
-    private Local localDestinoId;
+    private Local localDestino;
 
     @Column(name = "data_criacao", nullable = false)
     private LocalDate dataCriacao;
 
     @ManyToOne
     @JoinColumn(name = "status_id", referencedColumnName = "id", nullable = false)
-    private Status statusId;
+    private Status status;
+
+
 }

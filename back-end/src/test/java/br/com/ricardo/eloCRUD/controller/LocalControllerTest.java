@@ -51,8 +51,8 @@ class LocalControllerTest {
         mockMvc.perform(get("/api/locais"))
                 .andExpectAll(status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),
-                        jsonPath("$[0].id").value(1),
-                        jsonPath("$[0].descricao").value("Gabinete do Prefeito"));
+                        jsonPath("$.content[0].id").value(1),
+                        jsonPath("$.content[0].descricao").value("Gabinete do Prefeito"));
     }
 
     @Test

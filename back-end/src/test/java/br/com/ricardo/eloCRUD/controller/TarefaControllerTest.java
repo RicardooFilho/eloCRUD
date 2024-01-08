@@ -91,12 +91,12 @@ class TarefaControllerTest {
         tarefa.setExercicio(2023);
         tarefa.setRequerente(pessoa1);
         tarefa.setTitulo("Título Foda");
-        tarefa.setCategoriaId(categoria);
+        tarefa.setCategoria(categoria);
         tarefa.setDescricao("Descrição Foda");
-        tarefa.setRequeridoId(pessoa2);
-        tarefa.setLocalDestinoId(local);
+        tarefa.setRequerido(pessoa2);
+        tarefa.setLocalDestino(local);
         tarefa.setDataCriacao(LocalDate.now());
-        tarefa.setStatusId(status);
+        tarefa.setStatus(status);
 
 
         mockMvc.perform(post("/api/tarefas")
@@ -113,14 +113,14 @@ class TarefaControllerTest {
                         status().isOk(),
                         jsonPath("$[0].numero").value(1),
                         jsonPath("$[0].exercicio").value(2023),
-                        jsonPath("$[0].requerenteId.id").value(1),
+                        jsonPath("$[0].requerente.id").value(1),
                         jsonPath("$[0].titulo").value("Título Foda"),
-                        jsonPath("$[0].categoriaId.id").value(1),
+                        jsonPath("$[0].categoria.id").value(1),
                         jsonPath("$[0].descricao").value("Descrição Foda"),
-                        jsonPath("$[0].requeridoId.id").value(2),
-                        jsonPath("$[0].localDestinoId.id").value(2),
+                        jsonPath("$[0].requerido.id").value(2),
+                        jsonPath("$[0].localDestino.id").value(2),
                         jsonPath("$[0].dataCriacao").value(LocalDate.now().toString()),
-                        jsonPath("$[0].statusId.id").value(1));
+                        jsonPath("$[0].status.id").value(1));
     }
 
     @Test
@@ -133,14 +133,14 @@ class TarefaControllerTest {
                         status().isOk(),
                         jsonPath("$.numero").value(1),
                         jsonPath("$.exercicio").value(2023),
-                        jsonPath("$.requerenteId.id").value(1),
+                        jsonPath("$.requerente.id").value(1),
                         jsonPath("$.titulo").value("Título Foda"),
-                        jsonPath("$.categoriaId.id").value(1),
+                        jsonPath("$.categoria.id").value(1),
                         jsonPath("$.descricao").value("Descrição Foda"),
-                        jsonPath("$.requeridoId.id").value(2),
-                        jsonPath("$.localDestinoId.id").value(2),
+                        jsonPath("$.requerido.id").value(2),
+                        jsonPath("$.localDestino.id").value(2),
                         jsonPath("$.dataCriacao").value(LocalDate.now().toString()),
-                        jsonPath("$.statusId.id").value(1));
+                        jsonPath("$.status.id").value(1));
     }
 
     @Test
@@ -149,13 +149,13 @@ class TarefaControllerTest {
        Long numero = 1L;
 
         String requestBody = "{" +
-                "\"requerenteId\": { \"id\": \"1\" }," +
+                "\"requerente\": { \"id\": \"1\" }," +
                 "\"titulo\": \"Título Ruim\"," +
-                "\"categoriaId\": { \"id\": \"1\" }," +
+                "\"categoria\": { \"id\": \"1\" }," +
                 "\"descricao\": \"Descrição Ruim\"," +
-                "\"requeridoId\": { \"id\": \"2\" }," +
-                "\"localDestinoId\": { \"id\": \"2\" }," +
-                "\"statusId\": { \"id\": \"1\" }" +
+                "\"requerido\": { \"id\": \"2\" }," +
+                "\"localDestino\": { \"id\": \"2\" }," +
+                "\"status\": { \"id\": \"1\" }" +
                 "}";
 
 
@@ -175,14 +175,14 @@ class TarefaControllerTest {
                         status().isOk(),
                         jsonPath("$.numero").value(1),
                         jsonPath("$.exercicio").value(2023),
-                        jsonPath("$.requerenteId.id").value(1),
+                        jsonPath("$.requerente.id").value(1),
                         jsonPath("$.titulo").value("Título Ruim"),
-                        jsonPath("$.categoriaId.id").value(1),
+                        jsonPath("$.categoria.id").value(1),
                         jsonPath("$.descricao").value("Descrição Ruim"),
-                        jsonPath("$.requeridoId.id").value(2),
-                        jsonPath("$.localDestinoId.id").value(2),
+                        jsonPath("$.requerido.id").value(2),
+                        jsonPath("$.localDestino.id").value(2),
                         jsonPath("$.dataCriacao").value(LocalDate.now().toString()),
-                        jsonPath("$.statusId.id").value(1));
+                        jsonPath("$.status.id").value(1));
     }
 
     @Test

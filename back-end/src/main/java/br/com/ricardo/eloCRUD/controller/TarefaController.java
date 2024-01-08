@@ -38,12 +38,12 @@ public class TarefaController {
         Tarefa tarefaSalva = tarefaRepository.findById(numero).orElseThrow(null);
 
         tarefaSalva.setDescricao(novaTarefa.getDescricao());
-        tarefaSalva.setCategoriaId(novaTarefa.getCategoriaId());
+        tarefaSalva.setCategoria(novaTarefa.getCategoria());
         tarefaSalva.setTitulo(novaTarefa.getTitulo());
-        tarefaSalva.setLocalDestinoId(novaTarefa.getLocalDestinoId());
+        tarefaSalva.setLocalDestino(novaTarefa.getLocalDestino());
         tarefaSalva.setRequerente(novaTarefa.getRequerente());
-        tarefaSalva.setRequeridoId(novaTarefa.getRequeridoId());
-        tarefaSalva.setStatusId(novaTarefa.getStatusId());
+        tarefaSalva.setRequerido(novaTarefa.getRequerido());
+        tarefaSalva.setStatus(novaTarefa.getStatus());
 
         return ResponseEntity.ok(tarefaRepository.save(tarefaSalva));
     }

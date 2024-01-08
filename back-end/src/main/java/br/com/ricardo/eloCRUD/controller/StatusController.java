@@ -1,9 +1,14 @@
 package br.com.ricardo.eloCRUD.controller;
 
+import br.com.ricardo.eloCRUD.adapter.StatusAdapter;
 import br.com.ricardo.eloCRUD.domain.Status;
+import br.com.ricardo.eloCRUD.dto.StatusDTO;
 import br.com.ricardo.eloCRUD.repository.StatusRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.hibernate.usertype.StaticUserTypeSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,39 +20,50 @@ import java.util.List;
 public class StatusController {
 
     @Autowired
+    private StatusAdapter statusAdapter;
+
+    @Autowired
     private StatusRepository statusRepository;
 
     @GetMapping
-    public ResponseEntity<List<Status>> pegarTodosStatus() {
-        return ResponseEntity.ok(statusRepository.findAll());
+    public ResponseEntity<Page<StatusDTO>> pegarTodosStatus(Pageable pageable) {
+        Page<StatusDTO> statusDtoPage = statusRepository.findAll(pageable).map(status -> statusAdapter.toDto(status));
+
+        return ResponseEntity.status(HttpStatus.OK).body(statusDtoPage);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Status> pegarStatusPorId(@PathVariable Long id) {
-       return ResponseEntity.ok(statusRepository.findById(id).orElse(null));
+    public ResponseEntity<StatusDTO> pegarStatusPorId(@PathVariable Long id) {
+        StatusDTO statusDto = statusAdapter.toDto(statusRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Status não encontrado")));
+
+        return ResponseEntity.status(HttpStatus.OK).body(statusDto);
     }
 
     @PostMapping
-    public ResponseEntity<Status> criarStatus(@RequestBody Status novoStatus) {
-        Status status = statusRepository.save(novoStatus);
+    public ResponseEntity<StatusDTO> criarStatus(@RequestBody StatusDTO novoStatusDto) {
+        Status statusSalvo = statusRepository.save(statusAdapter.toEntity(novoStatusDto));
 
-        return new ResponseEntity<>(status, HttpStatus.CREATED);
+        StatusDTO statusDto = statusAdapter.toDto(statusSalvo);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(statusDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Status> editarStatusPorId(@PathVariable Long id, @RequestBody Status novoStatus) {
-        Status statusSalvo = statusRepository.findById(id).orElseThrow(null);
+    public ResponseEntity<StatusDTO> editarStatusPorId(@PathVariable Long id, @RequestBody Status novoStatus) {
+        Status statusSalvo = statusRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Status não encontrado"));
 
         statusSalvo.setDescricao(novoStatus.getDescricao());
         statusSalvo.setSituacao(novoStatus.getSituacao());
 
-        return ResponseEntity.ok(statusRepository.save(statusSalvo));
+        StatusDTO statusDto = statusAdapter.toDto(statusRepository.save(statusSalvo));
+
+        return ResponseEntity.status(HttpStatus.OK).body(statusDto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarStatusPorId (@PathVariable Long id) {
         statusRepository.deleteById(id);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

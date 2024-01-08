@@ -47,12 +47,12 @@ public class TarefaRepositoryTest {
         tarefa.setExercicio(2023);
         tarefa.setRequerente(pessoa1);
         tarefa.setTitulo("Empenho sem número");
-        tarefa.setCategoriaId(categoria);
+        tarefa.setCategoria(categoria);
         tarefa.setDescricao("Foi verificado que alguns empenhos estão sem número");
-        tarefa.setRequeridoId(pessoa2);
-        tarefa.setLocalDestinoId(local);
+        tarefa.setRequerido(pessoa2);
+        tarefa.setLocalDestino(local);
         tarefa.setDataCriacao(LocalDate.now());
-        tarefa.setStatusId(status);
+        tarefa.setStatus(status);
 
         Tarefa tarefaSalva = tarefaRepository.save(tarefa);
 
@@ -61,12 +61,12 @@ public class TarefaRepositoryTest {
         assertThat(tarefaSalva.getExercicio()).isEqualTo(2023);
         assertThat(tarefaSalva.getRequerente()).isEqualTo(pessoa1);
         assertThat(tarefaSalva.getTitulo()).isEqualTo("Empenho sem número");
-        assertThat(tarefaSalva.getCategoriaId()).isEqualTo(categoria);
+        assertThat(tarefaSalva.getCategoria()).isEqualTo(categoria);
         assertThat(tarefaSalva.getDescricao()).isEqualTo("Foi verificado que alguns empenhos estão sem número");
-        assertThat(tarefaSalva.getRequeridoId()).isEqualTo(pessoa2);
-        assertThat(tarefaSalva.getLocalDestinoId()).isEqualTo(local);
+        assertThat(tarefaSalva.getRequerido()).isEqualTo(pessoa2);
+        assertThat(tarefaSalva.getLocalDestino()).isEqualTo(local);
         assertThat(tarefaSalva.getDataCriacao()).isEqualTo(LocalDate.now());
-        assertThat(tarefaSalva.getStatusId()).isEqualTo(status);
+        assertThat(tarefaSalva.getStatus()).isEqualTo(status);
     }
 
     @Test
@@ -92,12 +92,12 @@ public class TarefaRepositoryTest {
         assertThat(tarefaAtualizada.getExercicio()).isEqualTo(2023);
         assertThat(tarefaAtualizada.getRequerente()).isEqualTo(pessoa1);
         assertThat(tarefaAtualizada.getTitulo()).isEqualTo("Bug no OXY");
-        assertThat(tarefaAtualizada.getCategoriaId()).isEqualTo(categoria);
+        assertThat(tarefaAtualizada.getCategoria()).isEqualTo(categoria);
         assertThat(tarefaAtualizada.getDescricao()).isEqualTo("Módulo ARR");
-        assertThat(tarefaAtualizada.getRequeridoId()).isEqualTo(null);
-        assertThat(tarefaAtualizada.getLocalDestinoId()).isEqualTo(local);
+        assertThat(tarefaAtualizada.getRequerido()).isEqualTo(null);
+        assertThat(tarefaAtualizada.getLocalDestino()).isEqualTo(local);
         assertThat(tarefaAtualizada.getDataCriacao()).isEqualTo("2023-12-16");
-        assertThat(tarefaAtualizada.getStatusId()).isEqualTo(status);
+        assertThat(tarefaAtualizada.getStatus()).isEqualTo(status);
     }
 
     @Test

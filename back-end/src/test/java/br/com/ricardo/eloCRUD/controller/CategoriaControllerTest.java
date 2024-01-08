@@ -51,8 +51,8 @@ class CategoriaControllerTest {
         mockMvc.perform(get("/api/categorias"))
                 .andExpectAll(status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),
-                        jsonPath("$[0].descricao").value("Na fila"),
-                        jsonPath("$[0].id").value(1));
+                        jsonPath("$.content[0].descricao").value("Na fila"),
+                        jsonPath("$.content[0].id").value(1));
     }
 
     @Test

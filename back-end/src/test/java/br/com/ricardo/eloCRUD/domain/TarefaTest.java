@@ -16,23 +16,23 @@ class TarefaTest {
         tarefa.setExercicio(2023);
         tarefa.setRequerente(new Pessoa());
         tarefa.setTitulo("BUG");
-        tarefa.setCategoriaId(new Categoria());
+        tarefa.setCategoria(new Categoria());
         tarefa.setDescricao("Foi encontrado um BUG no OXY");
-        tarefa.setRequeridoId(new Pessoa());
-        tarefa.setLocalDestinoId(new Local());
+        tarefa.setRequerido(new Pessoa());
+        tarefa.setLocalDestino(new Local());
         tarefa.setDataCriacao(LocalDate.now());
-        tarefa.setStatusId(new Status());
+        tarefa.setStatus(new Status());
 
         assertThat(tarefa.getNumero()).isEqualTo(1L);
         assertThat(tarefa.getExercicio()).isEqualTo(2023);
         assertThat(tarefa.getRequerente()).isEqualTo(new Pessoa());
         assertThat(tarefa.getTitulo()).isEqualTo("BUG");
-        assertThat(tarefa.getCategoriaId()).isEqualTo(new Categoria());
+        assertThat(tarefa.getCategoria()).isEqualTo(new Categoria());
         assertThat(tarefa.getDescricao()).isEqualTo("Foi encontrado um BUG no OXY");
-        assertThat(tarefa.getRequeridoId()).isEqualTo(new Pessoa());
-        assertThat(tarefa.getLocalDestinoId()).isEqualTo(new Local());
+        assertThat(tarefa.getRequerido()).isEqualTo(new Pessoa());
+        assertThat(tarefa.getLocalDestino()).isEqualTo(new Local());
         assertThat(tarefa.getDataCriacao()).isEqualTo(LocalDate.now());
-        assertThat(tarefa.getStatusId()).isEqualTo(new Status());
+        assertThat(tarefa.getStatus()).isEqualTo(new Status());
     }
 
 }

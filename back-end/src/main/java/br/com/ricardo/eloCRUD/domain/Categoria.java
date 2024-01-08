@@ -3,6 +3,7 @@ package br.com.ricardo.eloCRUD.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Table(name = "categoria")
 @Data
 @EqualsAndHashCode(of = "id")
+@NoArgsConstructor
 public class Categoria {
 
     @Id
@@ -19,4 +21,9 @@ public class Categoria {
 
     @Column(length = 20, nullable = false)
     private String descricao;
+
+    public Categoria(Long id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 }
