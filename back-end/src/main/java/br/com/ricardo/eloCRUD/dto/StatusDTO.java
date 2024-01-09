@@ -2,7 +2,6 @@ package br.com.ricardo.eloCRUD.dto;
 
 import br.com.ricardo.eloCRUD.enums.SituacaoEnum;
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

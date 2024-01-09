@@ -51,5 +51,17 @@ public class Tarefa {
     @JoinColumn(name = "status_id", referencedColumnName = "id", nullable = false)
     private Status status;
 
-
+    public Tarefa(Long numero, Integer exercicio, Pessoa requerente, String titulo, Categoria categoria,
+                  String descricao, Pessoa requerido, Local localDestino, LocalDate dataCriacao, Status status) {
+        this.numero = numero;
+        this.exercicio = exercicio;
+        this.requerente = requerente;
+        this.titulo = titulo;
+        this.categoria = categoria;
+        this.descricao = descricao;
+        this.requerido = requerido;
+        this.localDestino = localDestino;
+        this.dataCriacao = dataCriacao;
+        this.status = status;
+    }
 }
