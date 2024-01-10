@@ -1,7 +1,10 @@
 package br.com.ricardo.eloCRUD.adapter;
 
+import br.com.ricardo.eloCRUD.domain.Pessoa;
 import br.com.ricardo.eloCRUD.domain.Tarefa;
 import br.com.ricardo.eloCRUD.dto.TarefaDTO;
+
+import java.util.Objects;
 
 public class TarefaAdapter implements Adapter<TarefaDTO, Tarefa> {
 
@@ -13,7 +16,7 @@ public class TarefaAdapter implements Adapter<TarefaDTO, Tarefa> {
                         tarefaDTO.getTitulo(),
                         tarefaDTO.getCategoria(),
                         tarefaDTO.getDescricao(),
-                        tarefaDTO.getRequerido(),
+                        Objects.nonNull(tarefaDTO.getRequerido()) ? new Pessoa() : null,
                         tarefaDTO.getLocalDestino(),
                         tarefaDTO.getDataCriacao(),
                         tarefaDTO.getStatus());
