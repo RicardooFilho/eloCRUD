@@ -1,6 +1,7 @@
 package br.com.ricardo.eloCRUD.controller;
 
 import br.com.ricardo.eloCRUD.domain.*;
+import br.com.ricardo.eloCRUD.dto.*;
 import br.com.ricardo.eloCRUD.enums.SituacaoEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.MethodOrderer;
@@ -37,71 +38,71 @@ class TarefaControllerTest {
     @Test
     @Order(1)
     public void tarefaPostTest() throws Exception {
-        Categoria categoria = new Categoria();
-        Pessoa pessoa1 = new Pessoa();
-        Pessoa pessoa2 = new Pessoa();
-        Local local = new Local();
-        Status status = new Status();
+        CategoriaDTO categoriaDto = new CategoriaDTO();
+        PessoaDTO pessoaDto1 = new PessoaDTO();
+        PessoaDTO pessoaDto2 = new PessoaDTO();
+        LocalDTO localDto = new LocalDTO();
+        StatusDTO statusDto = new StatusDTO();
 
-        categoria.setId(1L);
-        categoria.setDescricao("Na fila");
+        categoriaDto.setId(1L);
+        categoriaDto.setDescricao("Na fila");
 
-        pessoa1.setId(1L);
-        pessoa1.setNome("Daniel");
-        pessoa1.setCpf("12345678910");
-        pessoa1.setTelefone("44910112287");
-        pessoa1.setEmail("teste@teste.com");
+        pessoaDto1.setId(1L);
+        pessoaDto1.setNome("Daniel");
+        pessoaDto1.setCpf("12345678910");
+        pessoaDto1.setTelefone("44910112287");
+        pessoaDto1.setEmail("teste@teste.com");
 
-        pessoa2.setId(2L);
-        pessoa2.setNome("Ricardo");
-        pessoa2.setCpf("12345698710");
-        pessoa2.setTelefone("88796332287");
-        pessoa2.setEmail("teste@teste.com.br");
+        pessoaDto2.setId(2L);
+        pessoaDto2.setNome("Ricardo");
+        pessoaDto2.setCpf("12345698710");
+        pessoaDto2.setTelefone("88796332287");
+        pessoaDto2.setEmail("teste@teste.com.br");
 
-        local.setId(2L);
-        local.setDescricao("Setor Administrativo");
+        localDto.setId(2L);
+        localDto.setDescricao("Setor Administrativo");
 
-        status.setId(1L);
-        status.setDescricao("Em Espera");
-        status.setSituacao(SituacaoEnum.PENDENTE);
+        statusDto.setId(1L);
+        statusDto.setDescricao("Em Espera");
+        statusDto.setSituacao(SituacaoEnum.PENDENTE);
 
         mockMvc.perform(post("/api/categorias")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(categoria)));
+                .content(objectMapper.writeValueAsString(categoriaDto)));
 
         mockMvc.perform(post("/api/pessoas")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(pessoa1)));
+                .content(objectMapper.writeValueAsString(pessoaDto1)));
 
         mockMvc.perform(post("/api/pessoas")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(pessoa2)));
+                .content(objectMapper.writeValueAsString(pessoaDto2)));
 
         mockMvc.perform(post("/api/locais")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(local)));
+                .content(objectMapper.writeValueAsString(localDto)));
 
         mockMvc.perform(post("/api/status")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(status)));
+                .content(objectMapper.writeValueAsString(statusDto)));
 
-        Tarefa tarefa = new Tarefa();
+        TarefaDTO tarefaDto = new TarefaDTO();
 
-        tarefa.setNumero(1L);
-        tarefa.setExercicio(2023);
-        tarefa.setRequerente(pessoa1);
-        tarefa.setTitulo("Título Foda");
-        tarefa.setCategoria(categoria);
-        tarefa.setDescricao("Descrição Foda");
-        tarefa.setRequerido(pessoa2);
-        tarefa.setLocalDestino(local);
-        tarefa.setDataCriacao(LocalDate.now());
-        tarefa.setStatus(status);
+        tarefaDto.setNumero(1L);
+        tarefaDto.setExercicio(2023);
+        tarefaDto.setRequerenteDto(pessoaDto1);
+        tarefaDto.setTitulo("Título Foda");
+        tarefaDto.setCategoriaDto(categoriaDto);
+        tarefaDto.setDescricao("Descrição Foda");
+        tarefaDto.setRequeridoDto(pessoaDto2);
+        tarefaDto.setLocalDestinoDto(localDto);
+        tarefaDto.setDataCriacao(LocalDate.now());
+        tarefaDto.setStatusDto(statusDto);
 
 
         mockMvc.perform(post("/api/tarefas")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(tarefa)))
+                        .content(objectMapper.writeValueAsString(tarefaDto)))
                 .andExpect(status().isCreated());
     }
 
@@ -113,14 +114,14 @@ class TarefaControllerTest {
                         status().isOk(),
                         jsonPath("$.content[0].numero").value(1),
                         jsonPath("$.content[0].exercicio").value(2023),
-                        jsonPath("$.content[0].requerente.id").value(1),
+                        jsonPath("$.content[0].requerenteDto.id").value(1),
                         jsonPath("$.content[0].titulo").value("Título Foda"),
-                        jsonPath("$.content[0].categoria.id").value(1),
+                        jsonPath("$.content[0].categoriaDto.id").value(1),
                         jsonPath("$.content[0].descricao").value("Descrição Foda"),
-                        jsonPath("$.content[0].requerido.id").value(2),
-                        jsonPath("$.content[0].localDestino.id").value(2),
+                        jsonPath("$.content[0].requeridoDto.id").value(2),
+                        jsonPath("$.content[0].localDestinoDto.id").value(2),
                         jsonPath("$.content[0].dataCriacao").value(LocalDate.now().toString()),
-                        jsonPath("$.content[0].status.id").value(1));
+                        jsonPath("$.content[0].statusDto.id").value(1));
     }
 
     @Test
@@ -133,14 +134,14 @@ class TarefaControllerTest {
                         status().isOk(),
                         jsonPath("$.numero").value(1),
                         jsonPath("$.exercicio").value(2023),
-                        jsonPath("$.requerente.id").value(1),
+                        jsonPath("$.requerenteDto.id").value(1),
                         jsonPath("$.titulo").value("Título Foda"),
-                        jsonPath("$.categoria.id").value(1),
+                        jsonPath("$.categoriaDto.id").value(1),
                         jsonPath("$.descricao").value("Descrição Foda"),
-                        jsonPath("$.requerido.id").value(2),
-                        jsonPath("$.localDestino.id").value(2),
+                        jsonPath("$.requeridoDto.id").value(2),
+                        jsonPath("$.localDestinoDto.id").value(2),
                         jsonPath("$.dataCriacao").value(LocalDate.now().toString()),
-                        jsonPath("$.status.id").value(1));
+                        jsonPath("$.statusDto.id").value(1));
     }
 
     @Test
@@ -149,13 +150,13 @@ class TarefaControllerTest {
        Long numero = 1L;
 
         String requestBody = "{" +
-                "\"requerente\": { \"id\": \"1\" }," +
+                "\"requerenteDto\": { \"id\": \"1\" }," +
                 "\"titulo\": \"Título Ruim\"," +
-                "\"categoria\": { \"id\": \"1\" }," +
+                "\"categoriaDto\": { \"id\": \"1\" }," +
                 "\"descricao\": \"Descrição Ruim\"," +
-                "\"requerido\": { \"id\": \"2\" }," +
-                "\"localDestino\": { \"id\": \"2\" }," +
-                "\"status\": { \"id\": \"1\" }" +
+                "\"requeridoDto\": { \"id\": \"2\" }," +
+                "\"localDestinoDto\": { \"id\": \"2\" }," +
+                "\"statusDto\": { \"id\": \"1\" }" +
                 "}";
 
 
@@ -175,14 +176,14 @@ class TarefaControllerTest {
                         status().isOk(),
                         jsonPath("$.numero").value(1),
                         jsonPath("$.exercicio").value(2023),
-                        jsonPath("$.requerente.id").value(1),
+                        jsonPath("$.requerenteDto.id").value(1),
                         jsonPath("$.titulo").value("Título Ruim"),
-                        jsonPath("$.categoria.id").value(1),
+                        jsonPath("$.categoriaDto.id").value(1),
                         jsonPath("$.descricao").value("Descrição Ruim"),
-                        jsonPath("$.requerido.id").value(2),
-                        jsonPath("$.localDestino.id").value(2),
+                        jsonPath("$.requeridoDto.id").value(2),
+                        jsonPath("$.localDestinoDto.id").value(2),
                         jsonPath("$.dataCriacao").value(LocalDate.now().toString()),
-                        jsonPath("$.status.id").value(1));
+                        jsonPath("$.statusDto.id").value(1));
     }
 
     @Test
