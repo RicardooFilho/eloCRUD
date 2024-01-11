@@ -5,15 +5,13 @@ import br.com.ricardo.eloCRUD.domain.Status;
 import br.com.ricardo.eloCRUD.dto.StatusDTO;
 import br.com.ricardo.eloCRUD.repository.StatusRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.hibernate.usertype.StaticUserTypeSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/status")
@@ -40,7 +38,7 @@ public class StatusController {
     }
 
     @PostMapping
-    public ResponseEntity<StatusDTO> criarStatus(@RequestBody StatusDTO novoStatusDto) {
+    public ResponseEntity<StatusDTO> criarStatus(@RequestBody @Validated StatusDTO novoStatusDto) {
         Status statusSalvo = statusRepository.save(statusAdapter.toEntity(novoStatusDto));
 
         StatusDTO statusDto = statusAdapter.toDto(statusSalvo);
@@ -49,7 +47,7 @@ public class StatusController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StatusDTO> editarStatusPorId(@PathVariable Long id, @RequestBody Status novoStatus) {
+    public ResponseEntity<StatusDTO> editarStatusPorId(@PathVariable Long id, @RequestBody @Validated Status novoStatus) {
         Status statusSalvo = statusRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Status não encontrado"));
 
         statusSalvo.setDescricao(novoStatus.getDescricao());

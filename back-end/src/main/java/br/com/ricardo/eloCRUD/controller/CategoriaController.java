@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoriaDTO> criarCategoria(@RequestBody CategoriaDTO novaCategoriaDto) {
+    public ResponseEntity<CategoriaDTO> criarCategoria(@RequestBody @Validated CategoriaDTO novaCategoriaDto) {
         Categoria categoriaSalva = categoriaRepository.save(categoriaAdapter.toEntity(novaCategoriaDto));
 
         CategoriaDTO categoriaDto = categoriaAdapter.toDto(categoriaSalva);
@@ -49,7 +50,7 @@ public class CategoriaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoriaDTO> editarCategoriaPorId(@PathVariable Long id, @RequestBody Categoria novaCategoria) {
+    public ResponseEntity<CategoriaDTO> editarCategoriaPorId(@PathVariable Long id, @RequestBody @Validated Categoria novaCategoria) {
         Categoria categoriaSalva = categoriaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada"));
 
         categoriaSalva.setDescricao(novaCategoria.getDescricao());

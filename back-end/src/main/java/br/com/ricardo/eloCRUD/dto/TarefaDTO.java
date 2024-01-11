@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -20,31 +21,31 @@ public class TarefaDTO {
     @Nonnull
     private Long numero;
 
-    @Nonnull
+    @NotNull
     private Integer exercicio;
 
     @Nonnull
-    private Pessoa requerente;
+    private PessoaDTO requerenteDto;
 
     @NotBlank(message = "Insira um título")
     private String titulo;
 
     @Nonnull
-    private Categoria categoria;
+    private CategoriaDTO categoriaDto;
 
     @NotBlank(message = "Insira uma descrição")
     private String descricao;
 
     @Nonnull
-    private Pessoa requerido;
+    private PessoaDTO requeridoDto;
 
     @Nonnull
-    private Local localDestino;
+    private LocalDTO localDestinoDto;
 
     @Nonnull
     private LocalDate dataCriacao;
 
     @Nonnull
-    private Status status;
+    private StatusDTO statusDto;
 
 }

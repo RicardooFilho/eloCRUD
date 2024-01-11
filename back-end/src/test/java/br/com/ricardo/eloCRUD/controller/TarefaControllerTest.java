@@ -111,16 +111,16 @@ class TarefaControllerTest {
         mockMvc.perform(get("/api/tarefas"))
                 .andExpectAll(content().contentType(MediaType.APPLICATION_JSON),
                         status().isOk(),
-                        jsonPath("$[0].numero").value(1),
-                        jsonPath("$[0].exercicio").value(2023),
-                        jsonPath("$[0].requerente.id").value(1),
-                        jsonPath("$[0].titulo").value("Título Foda"),
-                        jsonPath("$[0].categoria.id").value(1),
-                        jsonPath("$[0].descricao").value("Descrição Foda"),
-                        jsonPath("$[0].requerido.id").value(2),
-                        jsonPath("$[0].localDestino.id").value(2),
-                        jsonPath("$[0].dataCriacao").value(LocalDate.now().toString()),
-                        jsonPath("$[0].status.id").value(1));
+                        jsonPath("$.content[0].numero").value(1),
+                        jsonPath("$.content[0].exercicio").value(2023),
+                        jsonPath("$.content[0].requerente.id").value(1),
+                        jsonPath("$.content[0].titulo").value("Título Foda"),
+                        jsonPath("$.content[0].categoria.id").value(1),
+                        jsonPath("$.content[0].descricao").value("Descrição Foda"),
+                        jsonPath("$.content[0].requerido.id").value(2),
+                        jsonPath("$.content[0].localDestino.id").value(2),
+                        jsonPath("$.content[0].dataCriacao").value(LocalDate.now().toString()),
+                        jsonPath("$.content[0].status.id").value(1));
     }
 
     @Test

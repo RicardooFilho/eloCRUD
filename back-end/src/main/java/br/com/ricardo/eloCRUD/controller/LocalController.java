@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,7 +38,7 @@ public class LocalController {
     }
 
     @PostMapping
-    public ResponseEntity<LocalDTO> criarLocal(@RequestBody LocalDTO novoLocalDto) {
+    public ResponseEntity<LocalDTO> criarLocal(@RequestBody @Validated LocalDTO novoLocalDto) {
        Local localSalvo = localRepository.save(localAdapter.toEntity(novoLocalDto));
 
        LocalDTO localDto = localAdapter.toDto(localSalvo);
@@ -46,7 +47,7 @@ public class LocalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LocalDTO> editarLocalPorId(@PathVariable Long id, @RequestBody Local novoLocal) {
+    public ResponseEntity<LocalDTO> editarLocalPorId(@PathVariable Long id, @RequestBody @Validated Local novoLocal) {
         Local localSalvo = localRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Local não encontrado"));
 
         localSalvo.setDescricao(novoLocal.getDescricao());

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,7 +38,7 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<PessoaDTO> criarPessoa(@RequestBody PessoaDTO novaPessoaDto) {
+    public ResponseEntity<PessoaDTO> criarPessoa(@RequestBody @Validated PessoaDTO novaPessoaDto) {
         Pessoa pessoaSalva = pessoaRepository.save(pessoaAdapter.toEntity(novaPessoaDto));
 
         PessoaDTO pessoaDto = pessoaAdapter.toDto(pessoaSalva);
@@ -46,7 +47,7 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PessoaDTO> editarPessoaPorId(@PathVariable Long id, @RequestBody Pessoa novaPessoa) {
+    public ResponseEntity<PessoaDTO> editarPessoaPorId(@PathVariable Long id, @RequestBody @Validated Pessoa novaPessoa) {
         Pessoa pessoaSalva = pessoaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada"));
 
         pessoaSalva.setNome(novaPessoa.getNome());

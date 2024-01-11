@@ -4,6 +4,8 @@ import br.com.ricardo.eloCRUD.domain.Categoria;
 import br.com.ricardo.eloCRUD.dto.CategoriaDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class CategoriaAdapter implements Adapter<CategoriaDTO, Categoria>{
 

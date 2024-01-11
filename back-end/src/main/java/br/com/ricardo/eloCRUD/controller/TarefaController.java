@@ -1,41 +1,54 @@
 package br.com.ricardo.eloCRUD.controller;
 
+import br.com.ricardo.eloCRUD.adapter.TarefaAdapter;
 import br.com.ricardo.eloCRUD.domain.Tarefa;
+import br.com.ricardo.eloCRUD.dto.TarefaDTO;
 import br.com.ricardo.eloCRUD.repository.TarefaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/tarefas")
 public class TarefaController {
 
     @Autowired
+    private TarefaAdapter tarefaAdapter;
+
+    @Autowired
     private TarefaRepository tarefaRepository;
 
     @GetMapping
-    public ResponseEntity<List<Tarefa>> pegarTodasTarefas() {
-        return ResponseEntity.ok(tarefaRepository.findAll());
+    public ResponseEntity<Page<TarefaDTO>> pegarTodasTarefas(Pageable pageable) {
+        Page<TarefaDTO> tarefaDtoPage = tarefaRepository.findAll(pageable).map(tarefa -> tarefaAdapter.toDto(tarefa));
+
+        return ResponseEntity.status(HttpStatus.OK).body(tarefaDtoPage);
     }
 
     @GetMapping("/{numero}")
-    public ResponseEntity<Tarefa> pegarTarefaPorId(@PathVariable Long numero) {
-        return ResponseEntity.ok(tarefaRepository.findById(numero).orElse(null));
+    public ResponseEntity<TarefaDTO> pegarTarefaPorId(@PathVariable Long numero) {
+        TarefaDTO tarefaDto = tarefaAdapter.toDto(tarefaRepository.findById(numero).orElseThrow(() -> new EntityNotFoundException("Tarefa não encontrada")));
+
+        return ResponseEntity.status(HttpStatus.OK).body(tarefaDto);
     }
 
     @PostMapping
-    public ResponseEntity<Tarefa> criarTarefa(@RequestBody Tarefa novaTarefa) {
-        Tarefa tarefa = tarefaRepository.save(novaTarefa);
+    public ResponseEntity<TarefaDTO> criarTarefa(@RequestBody @Validated TarefaDTO novaTarefaDto) {
+        Tarefa tarefaSalva = tarefaRepository.save(tarefaAdapter.toEntity(novaTarefaDto));
 
-        return new ResponseEntity<>(tarefa, HttpStatus.CREATED);
+        TarefaDTO tarefaDto = tarefaAdapter.toDto(tarefaSalva);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(tarefaDto);
     }
 
     @PutMapping("/{numero}")
-    public ResponseEntity<Tarefa> editarTarefaPorId(@PathVariable Long numero, @RequestBody Tarefa novaTarefa) {
-        Tarefa tarefaSalva = tarefaRepository.findById(numero).orElseThrow(null);
+    public ResponseEntity<TarefaDTO> editarTarefaPorId(@PathVariable Long numero, @RequestBody @Validated Tarefa novaTarefa) {
+        Tarefa tarefaSalva = tarefaRepository.findById(numero).orElseThrow(() -> new EntityNotFoundException("Tarefa não encontrada"));
 
         tarefaSalva.setDescricao(novaTarefa.getDescricao());
         tarefaSalva.setCategoria(novaTarefa.getCategoria());
@@ -45,13 +58,15 @@ public class TarefaController {
         tarefaSalva.setRequerido(novaTarefa.getRequerido());
         tarefaSalva.setStatus(novaTarefa.getStatus());
 
-        return ResponseEntity.ok(tarefaRepository.save(tarefaSalva));
+        TarefaDTO tarefaDto = tarefaAdapter.toDto(tarefaRepository.save(tarefaSalva));
+
+        return ResponseEntity.status(HttpStatus.OK).body(tarefaDto);
     }
 
     @DeleteMapping("/{numero}")
     public ResponseEntity<Void> deletarTarefaPorId(@PathVariable Long numero) {
         tarefaRepository.deleteById(numero);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

@@ -4,6 +4,8 @@ import br.com.ricardo.eloCRUD.domain.Local;
 import br.com.ricardo.eloCRUD.dto.LocalDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class LocalAdapter implements Adapter<LocalDTO, Local>{
 
