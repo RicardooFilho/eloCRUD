@@ -1,13 +1,16 @@
 package br.com.ricardo.eloCRUD.controller;
 
+import br.com.ricardo.eloCRUD.adapter.TarefaAdapter;
 import br.com.ricardo.eloCRUD.domain.*;
 import br.com.ricardo.eloCRUD.dto.*;
 import br.com.ricardo.eloCRUD.enums.SituacaoEnum;
+import br.com.ricardo.eloCRUD.repository.TarefaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +19,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -34,6 +39,12 @@ class TarefaControllerTest {
 
     @Autowired
     private TarefaController tarefaController;
+
+    @Autowired
+    private TarefaAdapter tarefaAdapter;
+
+    @Mock
+    private TarefaRepository tarefaRepository;
 
     @Test
     @Order(1)
@@ -108,7 +119,11 @@ class TarefaControllerTest {
 
     @Test
     @Order(2)
-    public void tarefaGetAllTest() throws Exception{
+    public void tarefaGetAllTest() throws Exception {
+
+        //List<Tarefa> tarefas = List.of(new Tarefa());
+        //when(tarefaRepository.findAll()).thenReturn(tarefas);
+
         mockMvc.perform(get("/api/tarefas"))
                 .andExpectAll(content().contentType(MediaType.APPLICATION_JSON),
                         status().isOk(),
@@ -122,6 +137,8 @@ class TarefaControllerTest {
                         jsonPath("$.content[0].localDestinoDto.id").value(2),
                         jsonPath("$.content[0].dataCriacao").value(LocalDate.now().toString()),
                         jsonPath("$.content[0].statusDto.id").value(1));
+
+
     }
 
     @Test
@@ -149,14 +166,62 @@ class TarefaControllerTest {
     public void tarefaPutTest() throws Exception {
        Long numero = 1L;
 
+        Categoria categoria = new Categoria();
+        Pessoa pessoa1 = new Pessoa();
+        Pessoa pessoa2 = new Pessoa();
+        Local local = new Local();
+        Status status = new Status();
+
+        categoria.setId(1L);
+        categoria.setDescricao("Na fila");
+
+        pessoa1.setId(1L);
+        pessoa1.setNome("Daniel");
+        pessoa1.setCpf("12345678910");
+        pessoa1.setTelefone("44910112287");
+        pessoa1.setEmail("teste@teste.com");
+
+        pessoa2.setId(2L);
+        pessoa2.setNome("Ricardo");
+        pessoa2.setCpf("12345698710");
+        pessoa2.setTelefone("88796332287");
+        pessoa2.setEmail("teste@teste.com.br");
+
+        local.setId(2L);
+        local.setDescricao("Setor Administrativo");
+
+        status.setId(1L);
+        status.setDescricao("Em Espera");
+        status.setSituacao(SituacaoEnum.PENDENTE);
+
+        mockMvc.perform(post("/api/categorias")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(categoria)));
+
+        mockMvc.perform(post("/api/pessoas")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(pessoa1)));
+
+        mockMvc.perform(post("/api/pessoas")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(pessoa2)));
+
+        mockMvc.perform(post("/api/locais")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(local)));
+
+        mockMvc.perform(post("/api/status")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(status)));
+
         String requestBody = "{" +
-                "\"requerenteDto\": { \"id\": \"1\" }," +
+                "\"requerente\": { \"id\": \"1\" }," +
                 "\"titulo\": \"Título Ruim\"," +
-                "\"categoriaDto\": { \"id\": \"1\" }," +
+                "\"categoria\": { \"id\": \"1\" }," +
                 "\"descricao\": \"Descrição Ruim\"," +
-                "\"requeridoDto\": { \"id\": \"2\" }," +
-                "\"localDestinoDto\": { \"id\": \"2\" }," +
-                "\"statusDto\": { \"id\": \"1\" }" +
+                "\"requerido\": { \"id\": \"2\" }," +
+                "\"localDestino\": { \"id\": \"2\" }," +
+                "\"status\": { \"id\": \"1\" }" +
                 "}";
 
 
