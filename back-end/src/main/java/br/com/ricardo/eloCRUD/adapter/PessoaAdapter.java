@@ -37,9 +37,7 @@ public class PessoaAdapter implements Adapter<PessoaDTO, Pessoa>{
             return null;
         }
 
-        List<LocalDTO> localDTOList = pessoa.getLocais().stream().map(local -> {
-            return this.localAdapter.toDto(local);
-        }).collect(Collectors.toList());
+        List<LocalDTO> localDTOList = pessoa.getLocais().stream().map(this.localAdapter::toDto).collect(Collectors.toList());
 
         return new PessoaDTO(pessoa.getId(),
                             pessoa.getNome(),

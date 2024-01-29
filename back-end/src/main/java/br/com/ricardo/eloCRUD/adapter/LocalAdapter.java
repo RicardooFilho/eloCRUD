@@ -27,9 +27,7 @@ public class LocalAdapter implements Adapter<LocalDTO, Local>{
 
     @Override
     public LocalDTO toDto(Local local) {
-        List<PessoaDTO> pessoaDTOList = local.getPessoas().stream().map(pessoa -> {
-            return this.pessoaAdapter.toDto(pessoa);
-        }).collect(Collectors.toList());
+        List<PessoaDTO> pessoaDTOList = local.getPessoas().stream().map(this.pessoaAdapter::toDto).collect(Collectors.toList());
 
         return new LocalDTO(local.getId(),
                             local.getDescricao(),
