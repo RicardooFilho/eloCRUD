@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="1" author="RicardooFilho">
+    <changeSet id="create-table-comentario" author="RicardooFilho">
         <preConditions onFail="MARK_RAN" onFailMessage="A tabela comentario já existe">
             <not>
                 <tableExists tableName="comentario"/>
@@ -29,8 +29,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <createSequence sequenceName="comentario_sequence" startValue="1" incrementBy="1" minValue="1" maxValue="99999"/>
         
         <addForeignKeyConstraint baseTableName="comentario" 
                                  baseColumnNames="pessoa_id" 
@@ -45,4 +43,13 @@
                                  referencedColumnNames="numero"/>
     </changeSet>
 
+    <changeSet id="create-comentario-sequence" author="RicardooFilho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A sequence comentario_sequence">
+            <not>
+                <sequenceExists sequenceName="comentario_sequence"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="comentario_sequence" startValue="1" incrementBy="1" minValue="1"/>
+    </changeSet>
 </databaseChangeLog>

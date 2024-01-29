@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="1" author="RicardooFilho">
+    <changeSet id="create-table-status" author="RicardooFilho">
         <preConditions onFail="MARK_RAN" onFailMessage="A tabela status já existe">
             <not>
                 <tableExists tableName="status"/>
@@ -23,8 +23,15 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <createSequence sequenceName="status_sequence" startValue="1" incrementBy="1" minValue="1" maxValue="99999"/>
     </changeSet>
 
+    <changeSet id="create-status-sequence" author="RicardooFilho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A sequence status_sequence já existe">
+            <not>
+                <sequenceExists sequenceName="status_sequence"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="status_sequence" startValue="1" incrementBy="1" minValue="1"/>
+    </changeSet>
 </databaseChangeLog>

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class Local {
     private Long id;
 
     @Column(length = 50, nullable = false)
+    @NotBlank(message = "Insira uma descrição")
     private String descricao;
 
     @ManyToMany(mappedBy = "locais")

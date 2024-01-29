@@ -2,9 +2,13 @@ package br.com.ricardo.eloCRUD.domain;
 
 import br.com.ricardo.eloCRUD.enums.SituacaoEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
+
+
 
 @Entity
 @Table(name = "status")
@@ -19,10 +23,12 @@ public class Status {
     private Long id;
 
     @Column(length = 30, nullable = false)
+    @NotBlank(message = "Insira uma descrição")
     private String descricao;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @NotNull(message = "Insira uma situação")
     private SituacaoEnum situacao;
 
     public Status (Long id, String descricao, SituacaoEnum situacao) {

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class Categoria {
     private Long id;
 
     @Column(length = 20, nullable = false)
+    @NotBlank(message = "Insira uma descrição")
     private String descricao;
 
     public Categoria(Long id, String descricao) {

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotBlank;
 
 @Data
 @AllArgsConstructor
@@ -14,6 +13,5 @@ public class CategoriaDTO {
 
     private Long id;
 
-    @NotBlank(message = "Insira uma descrição")
     private String descricao;
 }

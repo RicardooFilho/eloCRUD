@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"> 
     
-    <changeSet id="1" author="RicardooFilho">
+    <changeSet id="create-table-categoria" author="RicardooFilho">
         <preConditions onFail="MARK_RAN" onFailMessage="A tabela categoria já existe">
             <not>
                 <tableExists tableName="categoria"/>
@@ -20,8 +20,15 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <createSequence sequenceName="categoria_sequence" startValue="1" incrementBy="1" minValue="1" maxValue="99999"/>
     </changeSet>
-    
+
+    <changeSet id="create-categoria-sequence" author="RicardooFilho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A sequência categoria_sequence já existe">
+            <not>
+                <sequenceExists sequenceName="categoria_sequence"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="categoria_sequence" startValue="1" incrementBy="1" minValue="1"/>
+    </changeSet>
 </databaseChangeLog>

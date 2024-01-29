@@ -1,14 +1,12 @@
 package br.com.ricardo.eloCRUD.controller;
 
-import br.com.ricardo.eloCRUD.adapter.PessoaAdapter;
-import br.com.ricardo.eloCRUD.domain.Pessoa;
+import br.com.ricardo.eloCRUD.Fixtures.FixturesDto;
 import br.com.ricardo.eloCRUD.dto.PessoaDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,17 +35,11 @@ class PessoaControllerTest {
     @Test
     @Order(1)
     public void pessoaPostTest() throws Exception {
-        PessoaDTO pessoaDto = new PessoaDTO();
-
-        pessoaDto.setId(1L);
-        pessoaDto.setNome("Ricardo");
-        pessoaDto.setCpf("46475296025");
-        pessoaDto.setTelefone("44978554126");
-        pessoaDto.setEmail("teste@teste.com");
+        PessoaDTO pessoaDTO = FixturesDto.criaPessoaDto();
 
         mockMvc.perform(post("/api/pessoas")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(pessoaDto)))
+                .content(objectMapper.writeValueAsString(pessoaDTO)))
                 .andExpect(status().isCreated());
     }
 

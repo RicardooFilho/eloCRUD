@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="1" author="RicardooFilho">
+    <changeSet id="create-table-tarefa" author="RicardooFilho">
         <preConditions onFail="MARK_RAN" onFailMessage="A tabela tarefa já existe">
             <not>
                 <tableExists tableName="tarefa"/>
@@ -45,8 +45,6 @@
             </column>
         </createTable>
 
-        <createSequence sequenceName="tarefa_sequence" startValue="1" incrementBy="1" minValue="1" maxValue="99999"/>
-
         <addForeignKeyConstraint baseTableName="tarefa"
                                  baseColumnNames="requerente_id"
                                  constraintName="fk_requerente_id"
@@ -78,4 +76,13 @@
                                  referencedColumnNames="id"/>
     </changeSet>
 
+    <changeSet id="create-tarefa-sequence" author="RicardooFilho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A sequence tarefa_sequence já existe">
+            <not>
+                <sequenceExists sequenceName="tarefa_sequence"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="tarefa_sequence" startValue="1" incrementBy="1" minValue="1"/>
+    </changeSet>
 </databaseChangeLog>

@@ -1,14 +1,22 @@
 package br.com.ricardo.eloCRUD.adapter;
 
 import br.com.ricardo.eloCRUD.domain.Pessoa;
+import br.com.ricardo.eloCRUD.dto.LocalDTO;
 import br.com.ricardo.eloCRUD.dto.PessoaDTO;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.ObjectError;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class PessoaAdapter implements Adapter<PessoaDTO, Pessoa>{
+
+    private final LocalAdapter localAdapter;
+
+    public PessoaAdapter(LocalAdapter localAdapter) {
+        this.localAdapter = localAdapter;
+    }
 
     @Override
     public Pessoa toEntity(PessoaDTO pessoaDTO) {
@@ -29,11 +37,15 @@ public class PessoaAdapter implements Adapter<PessoaDTO, Pessoa>{
             return null;
         }
 
+        List<LocalDTO> localDTOList = pessoa.getLocais().stream().map(local -> {
+            return this.localAdapter.toDto(local);
+        }).collect(Collectors.toList());
+
         return new PessoaDTO(pessoa.getId(),
                             pessoa.getNome(),
                             pessoa.getCpf(),
                             pessoa.getTelefone(),
                             pessoa.getEmail(),
-                            pessoa.getLocais());
+                            localDTOList);
     }
 }

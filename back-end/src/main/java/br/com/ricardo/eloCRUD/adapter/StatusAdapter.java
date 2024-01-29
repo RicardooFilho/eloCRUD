@@ -4,8 +4,6 @@ import br.com.ricardo.eloCRUD.domain.Status;
 import br.com.ricardo.eloCRUD.dto.StatusDTO;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 public class StatusAdapter implements Adapter<StatusDTO, Status> {
 

@@ -20,12 +20,12 @@ public class Comentario {
 
     @ManyToOne
     @JoinColumn(name = "pessoa_id", referencedColumnName = "id", nullable = false)
-    private Pessoa pessoaId;
+    private Pessoa pessoa;
 
     @Column(name = "data_comentario", nullable = false)
-    private LocalDate dataComentario;
+    private LocalDate data;
 
     @ManyToOne
     @JoinColumn(name = "tarefa_numero", referencedColumnName = "numero", nullable = false)
-    private Tarefa tarefaNumero;
+    private Tarefa tarefa;
 }

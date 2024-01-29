@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="1" author="RicardooFilho">
+    <changeSet id="create-table-pessoa" author="RicardooFilho">
         <preConditions onFail="MARK_RAN" onFailMessage="A tabela Pessoa já existe">
             <not>
                 <tableExists tableName="pessoa"/>
@@ -31,13 +31,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="2" author="RicardoFilhoo">
+    <changeSet id="create-pessoa-sequence" author="RicardoFilhoo">
         <preConditions onFail="MARK_RAN" onFailMessage="A sequence pessoa_sequence já existe">
             <not>
                 <sequenceExists sequenceName="pessoa_sequence"/>
             </not>
         </preConditions>
 
-        <createSequence sequenceName="pessoa_sequence" startValue="1" incrementBy="1" minValue="1" maxValue="99999"/>
+        <createSequence sequenceName="pessoa_sequence" startValue="1" incrementBy="1" minValue="1"/>
     </changeSet>
 </databaseChangeLog>

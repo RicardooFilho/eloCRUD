@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="1" author="RicardooFilho">
+    <changeSet id="create-table-local" author="RicardooFilho">
         <preConditions onFail="MARK_RAN" onFailMessage="A tabela local já existe">
             <not>
                 <tableExists tableName="local"/>
@@ -21,7 +21,8 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="2" author="RicardooFilho">
+
+    <changeSet id="create-local-sequence" author="RicardooFilho">
         <preConditions onFail="MARK_RAN" onFailMessage="A sequence local_sequence já existe">
             <not>
                 <sequenceExists sequenceName="local_sequence"/>
@@ -30,7 +31,4 @@
 
         <createSequence sequenceName="local_sequence" startValue="1" incrementBy="1" minValue="1" maxValue="99999"/>
     </changeSet>
-
-
-
 </databaseChangeLog>
