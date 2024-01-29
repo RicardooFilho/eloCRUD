@@ -1,6 +1,6 @@
 package br.com.ricardo.eloCRUD.controller;
 
-import br.com.ricardo.eloCRUD.Fixtures.FixturesDto;
+import br.com.ricardo.eloCRUD.fixtures.FixturesDto;
 import br.com.ricardo.eloCRUD.dto.PessoaDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.MethodOrderer;

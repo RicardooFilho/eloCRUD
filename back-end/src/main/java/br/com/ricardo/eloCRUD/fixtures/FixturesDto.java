@@ -1,4 +1,4 @@
-package br.com.ricardo.eloCRUD.Fixtures;
+package br.com.ricardo.eloCRUD.fixtures;
 
 import br.com.ricardo.eloCRUD.dto.PessoaDTO;
 

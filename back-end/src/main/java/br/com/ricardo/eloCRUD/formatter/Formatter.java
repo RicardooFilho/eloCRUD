@@ -1,4 +1,4 @@
-package br.com.ricardo.eloCRUD.formatters;
+package br.com.ricardo.eloCRUD.formatter;
 
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;

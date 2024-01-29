@@ -1,4 +1,4 @@
-package br.com.ricardo.eloCRUD.validators;
+package br.com.ricardo.eloCRUD.validator;
 
 import br.com.ricardo.eloCRUD.exceptions.CpfInvalidoException;
 import br.com.ricardo.eloCRUD.exceptions.CpfNullException;

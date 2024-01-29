@@ -1,11 +1,9 @@
 package br.com.ricardo.eloCRUD.domain;
 
-import br.com.ricardo.eloCRUD.domain.Pessoa;
 import br.com.ricardo.eloCRUD.exceptions.CpfInvalidoException;
 import br.com.ricardo.eloCRUD.exceptions.CpfNullException;
-import br.com.ricardo.eloCRUD.formatters.Formatter;
-import br.com.ricardo.eloCRUD.validators.Validator;
-import org.junit.jupiter.api.Assertions;
+import br.com.ricardo.eloCRUD.formatter.Formatter;
+import br.com.ricardo.eloCRUD.validator.Validator;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
