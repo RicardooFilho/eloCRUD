@@ -17,54 +17,5 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/pessoas")
 public class PessoaController {
 
-    @Autowired
-    private PessoaAdapter pessoaAdapter;
 
-    @Autowired
-    private PessoaRepository pessoaRepository;
-
-    @GetMapping
-    public  ResponseEntity<Page<PessoaDTO>> pegarTodasPessoas(Pageable pageable) {
-        Page<PessoaDTO> pessoaDtoPage = pessoaRepository.findAll(pageable).map(pessoa -> pessoaAdapter.toDto(pessoa));
-
-        return ResponseEntity.status(HttpStatus.OK).body(pessoaDtoPage);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<PessoaDTO> pegarPesssoaPorId(@PathVariable Long id) {
-        PessoaDTO pessoaDto = pessoaAdapter.toDto(pessoaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada")));
-
-        return ResponseEntity.status(HttpStatus.OK).body(pessoaDto);
-    }
-
-    @PostMapping
-    public ResponseEntity<PessoaDTO> criarPessoa(@RequestBody @Validated PessoaDTO novaPessoaDto) {
-        Pessoa pessoaSalva = pessoaRepository.save(pessoaAdapter.toEntity(novaPessoaDto));
-
-        PessoaDTO pessoaDto = pessoaAdapter.toDto(pessoaSalva);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaDto);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<PessoaDTO> editarPessoaPorId(@PathVariable Long id, @RequestBody @Validated Pessoa novaPessoa) {
-        Pessoa pessoaSalva = pessoaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada"));
-
-        pessoaSalva.setNome(novaPessoa.getNome());
-        pessoaSalva.setCpf(novaPessoa.getCpf());
-        pessoaSalva.setTelefone(novaPessoa.getTelefone());
-        pessoaSalva.setEmail(novaPessoa.getEmail());
-        pessoaSalva.setLocais(novaPessoa.getLocais());
-
-        PessoaDTO pessoaDtoSalva = pessoaAdapter.toDto(pessoaRepository.save(pessoaSalva));
-
-        return ResponseEntity.status(HttpStatus.OK).body(pessoaDtoSalva);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPessoaPorId(@PathVariable Long id) {
-        pessoaRepository.deleteById(id);
-
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
 }

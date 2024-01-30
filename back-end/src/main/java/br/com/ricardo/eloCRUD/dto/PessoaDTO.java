@@ -1,6 +1,5 @@
 package br.com.ricardo.eloCRUD.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,12 +25,4 @@ public class PessoaDTO {
     private String email;
 
     private List<LocalDTO> locais = new ArrayList<LocalDTO>();
-
-    public PessoaDTO(Long id, String nome, String cpf, String telefone, String email) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.email = email;
-    }
 }

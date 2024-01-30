@@ -3,6 +3,7 @@ package br.com.ricardo.eloCRUD.adapter;
 import br.com.ricardo.eloCRUD.domain.Pessoa;
 import br.com.ricardo.eloCRUD.dto.LocalDTO;
 import br.com.ricardo.eloCRUD.dto.PessoaDTO;
+import lombok.Builder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,12 +12,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class PessoaAdapter implements Adapter<PessoaDTO, Pessoa>{
-
-    private final LocalAdapter localAdapter;
-
-    public PessoaAdapter(LocalAdapter localAdapter) {
-        this.localAdapter = localAdapter;
-    }
 
     @Override
     public Pessoa toEntity(PessoaDTO pessoaDTO) {
@@ -37,7 +32,15 @@ public class PessoaAdapter implements Adapter<PessoaDTO, Pessoa>{
             return null;
         }
 
-        List<LocalDTO> localDTOList = pessoa.getLocais().stream().map(this.localAdapter::toDto).collect(Collectors.toList());
+        List<LocalDTO> localDTOList = pessoa.getLocais()
+                .stream()
+                .map(local -> {
+                    return LocalDTO.builder()
+                            .id(local.getId())
+                            .descricao(local.getDescricao())
+                            .build();
+                })
+                .collect(Collectors.toList());
 
         return new PessoaDTO(pessoa.getId(),
                             pessoa.getNome(),

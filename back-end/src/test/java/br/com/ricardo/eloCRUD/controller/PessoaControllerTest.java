@@ -1,6 +1,6 @@
 package br.com.ricardo.eloCRUD.controller;
 
-import br.com.ricardo.eloCRUD.fixtures.FixturesDto;
+import br.com.ricardo.eloCRUD.fixtures.Fixtures;
 import br.com.ricardo.eloCRUD.dto.PessoaDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.MethodOrderer;
@@ -35,7 +35,7 @@ class PessoaControllerTest {
     @Test
     @Order(1)
     public void pessoaPostTest() throws Exception {
-        PessoaDTO pessoaDTO = FixturesDto.criaPessoaDto();
+        PessoaDTO pessoaDTO = Fixtures.criaPessoaDto();
 
         mockMvc.perform(post("/api/pessoas")
                 .contentType(MediaType.APPLICATION_JSON)
