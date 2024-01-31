@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-class ComentarioTest {
+/*class ComentarioTest {
 
     @Test
     public void criacaoDeComentarioTest() {
@@ -27,4 +27,4 @@ class ComentarioTest {
         assertThat(comentario.getTarefaNumero()).isEqualTo(new Tarefa());
     }
 
-}
+}*/

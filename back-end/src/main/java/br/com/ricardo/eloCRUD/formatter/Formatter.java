@@ -10,7 +10,7 @@ public class Formatter {
 
     public static String formatString(String string, String mascara) {
         try {
-            MaskFormatter mask = new MaskFormatter(string);
+            MaskFormatter mask = new MaskFormatter(mascara);
             mask.setValueContainsLiteralCharacters(false);
 
             return mask.valueToString(string);

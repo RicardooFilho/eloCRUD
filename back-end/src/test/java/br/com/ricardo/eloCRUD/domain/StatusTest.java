@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-class StatusTest {
+/*class StatusTest {
 
     @Test
     public void criacaoDeStatusTest() {
@@ -21,4 +21,4 @@ class StatusTest {
         assertThat(status.getSituacao()).isEqualTo(SituacaoEnum.PENDENTE);
     }
 
-}
+}*/

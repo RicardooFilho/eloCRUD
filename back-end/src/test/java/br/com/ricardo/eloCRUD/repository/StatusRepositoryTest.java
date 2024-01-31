@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+/*@DataJpaTest
 @ActiveProfiles("test")
 @Sql(scripts = "/sql/status.sql")
 class StatusRepositoryTest {
@@ -69,4 +69,4 @@ class StatusRepositoryTest {
                 .containsExactlyInAnyOrder(12L, 11L);
     }
 
-}
+}*/

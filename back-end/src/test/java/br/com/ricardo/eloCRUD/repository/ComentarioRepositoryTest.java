@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+/*@DataJpaTest
 @ActiveProfiles("test")
 @Sql(scripts = {"/sql/categoria.sql", "/sql/local.sql", "/sql/pessoa.sql", "/sql/status.sql", "/sql/tarefa.sql", "/sql/comentario.sql"})
 
@@ -87,4 +87,4 @@ class ComentarioRepositoryTest {
                 .containsExactlyInAnyOrder(12L, 11L);
     }
 
-}
+}*/

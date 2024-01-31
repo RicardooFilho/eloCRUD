@@ -1,12 +1,11 @@
 package br.com.ricardo.eloCRUD.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ public class Local {
     @NotBlank(message = "Insira uma descrição")
     private String descricao;
 
-    @ManyToMany(mappedBy = "locais")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "locais")
     private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 
     public Local(Long id, String descricao) {

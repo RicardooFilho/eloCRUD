@@ -1,16 +1,13 @@
 package br.com.ricardo.eloCRUD.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +44,7 @@ public class Pessoa {
     @Email(message = "E-mail inválido")
     private String email;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "pessoa_local",
             joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "local_id", referencedColumnName = "id"))
