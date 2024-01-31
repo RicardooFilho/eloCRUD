@@ -3,6 +3,7 @@ package br.com.ricardo.eloCRUD.service;
 import br.com.ricardo.eloCRUD.adapter.PessoaAdapter;
 import br.com.ricardo.eloCRUD.domain.Pessoa;
 import br.com.ricardo.eloCRUD.dto.PessoaDTO;
+import br.com.ricardo.eloCRUD.exceptions.PessoaNotFoundException;
 import br.com.ricardo.eloCRUD.formatter.Formatter;
 import br.com.ricardo.eloCRUD.repository.PessoaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -41,7 +42,7 @@ public class PessoaService {
     }
 
     public PessoaDTO getPessoaPorId(Long id) {
-        PessoaDTO pessoaDTO = this.pessoaAdapter.toDto(this.pessoaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada")));
+        PessoaDTO pessoaDTO = this.pessoaAdapter.toDto(this.pessoaRepository.findById(id).orElseThrow(PessoaNotFoundException::new));
 
         Formatter.formatCpf(pessoaDTO);
         Formatter.formatTelefone(pessoaDTO);
@@ -54,7 +55,7 @@ public class PessoaService {
     }
 
     public Pessoa putPessoa(Long id, Pessoa pessoa) {
-        Pessoa pessoaSalva = this.pessoaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada"));
+        Pessoa pessoaSalva = this.pessoaRepository.findById(id).orElseThrow(PessoaNotFoundException::new);
 
         pessoaSalva.setNome(pessoa.getNome());
         pessoaSalva.setCpf(pessoa.getCpf());
