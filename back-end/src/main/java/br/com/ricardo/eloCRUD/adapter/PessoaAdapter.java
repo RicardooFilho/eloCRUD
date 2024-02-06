@@ -32,7 +32,7 @@ public class PessoaAdapter implements Adapter<PessoaDTO, Pessoa>{
             return null;
         }
 
-        List<LocalDTO> localDTOList = pessoa.getLocais()
+        List<LocalDTO> localDTOList = pessoa.  getLocais()
                 .stream()
                 .map(local -> {
                     return LocalDTO.builder()

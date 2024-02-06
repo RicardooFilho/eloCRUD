@@ -1,10 +1,8 @@
 package br.com.ricardo.eloCRUD.controller;
 
-import br.com.ricardo.eloCRUD.adapter.LocalAdapter;
 import br.com.ricardo.eloCRUD.domain.Local;
 import br.com.ricardo.eloCRUD.dto.LocalDTO;
-import br.com.ricardo.eloCRUD.repository.LocalRepository;
-import jakarta.persistence.EntityNotFoundException;
+import br.com.ricardo.eloCRUD.service.LocalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,50 +16,50 @@ import org.springframework.web.bind.annotation.*;
 public class LocalController {
 
     @Autowired
-    private LocalAdapter localAdapter;
-
-    @Autowired
-    private LocalRepository localRepository;
+    private LocalService localService;
 
     @GetMapping
-    public ResponseEntity<Page<LocalDTO>> pegarTodosLocais(Pageable pageable) {
-        Page<LocalDTO> localDtoPage = localRepository.findAll(pageable).map(local -> localAdapter.toDto(local));
-
-        return ResponseEntity.status(HttpStatus.OK).body(localDtoPage);
+    public ResponseEntity<Page<LocalDTO>> getTodosLocaisDescricao(@RequestParam(value = "descricao", required = false) String descricao,
+                                                                  Pageable pageable) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.localService.getTodosLocaisDescricao(descricao, pageable));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<LocalDTO> pegarLocalPorId(@PathVariable Long id) {
-        LocalDTO localDTO = localAdapter.toDto(localRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Local não encontrado")));
+    @GetMapping("/id/{id}")
+    public ResponseEntity<LocalDTO> getLocalPorId(@PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.localService.getLocalPorId(id));
+    }
 
-        return ResponseEntity.status(HttpStatus.OK).body(localDTO);
+    @GetMapping("/quantidade-locais")
+    public ResponseEntity<Long> getQuantidadeLocais() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.localService.getQuantidadeLocais());
     }
 
     @PostMapping
-    public ResponseEntity<LocalDTO> criarLocal(@RequestBody @Validated LocalDTO novoLocalDto) {
-       Local localSalvo = localRepository.save(localAdapter.toEntity(novoLocalDto));
-
-       LocalDTO localDto = localAdapter.toDto(localSalvo);
-
-       return ResponseEntity.status(HttpStatus.CREATED).body(localDto);
+    public ResponseEntity<Local> postLocal(@RequestBody @Validated Local novoLocal) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(this.localService.saveLocal(novoLocal));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LocalDTO> editarLocalPorId(@PathVariable Long id, @RequestBody @Validated Local novoLocal) {
-        Local localSalvo = localRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Local não encontrado"));
-
-        localSalvo.setDescricao(novoLocal.getDescricao());
-        localSalvo.setPessoas(novoLocal.getPessoas());
-
-        LocalDTO localDto = localAdapter.toDto(localRepository.save(localSalvo));
-
-        return ResponseEntity.status(HttpStatus.OK).body(localDto);
+    public ResponseEntity<Local> putLocalPorId(@PathVariable Long id, @RequestBody @Validated Local novoLocal) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.localService.putLocal(id, novoLocal));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarLocalPorId(@PathVariable Long id) {
-        localRepository.deleteById(id);
+        this.localService.deleteLocal(id);
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 }

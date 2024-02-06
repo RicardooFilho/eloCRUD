@@ -6,7 +6,6 @@ import br.com.ricardo.eloCRUD.dto.PessoaDTO;
 import br.com.ricardo.eloCRUD.exceptions.PessoaNotFoundException;
 import br.com.ricardo.eloCRUD.formatter.Formatter;
 import br.com.ricardo.eloCRUD.repository.PessoaRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -54,21 +53,21 @@ public class PessoaService {
         return this.pessoaRepository.count();
     }
 
-    public Pessoa putPessoa(Long id, Pessoa pessoa) {
+    public Pessoa putPessoa(Long id, Pessoa novaPessoa) {
         Pessoa pessoaSalva = this.pessoaRepository.findById(id).orElseThrow(PessoaNotFoundException::new);
 
-        pessoaSalva.setNome(pessoa.getNome());
-        pessoaSalva.setCpf(pessoa.getCpf());
-        pessoaSalva.setTelefone(pessoa.getTelefone());
-        pessoaSalva.setEmail(pessoa.getEmail());
+        pessoaSalva.setNome(novaPessoa.getNome());
+        pessoaSalva.setCpf(novaPessoa.getCpf());
+        pessoaSalva.setTelefone(novaPessoa.getTelefone());
+        pessoaSalva.setEmail(novaPessoa.getEmail());
         pessoaSalva.getLocais().clear();
-        pessoaSalva.getLocais().addAll(pessoa.getLocais());
+        pessoaSalva.getLocais().addAll(novaPessoa.getLocais());
 
         return this.pessoaRepository.save(pessoaSalva);
     }
 
-    public Pessoa savePessoa(Pessoa pessoa) {
-        return this.pessoaRepository.save(pessoa);
+    public Pessoa savePessoa(Pessoa novaPessoa) {
+        return this.pessoaRepository.save(novaPessoa);
     }
 
     public void deletePessoa(Long id) {
