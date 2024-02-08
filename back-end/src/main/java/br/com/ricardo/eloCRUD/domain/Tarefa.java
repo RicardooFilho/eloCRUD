@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotBlank;
 
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Entity
@@ -58,24 +59,10 @@ public class Tarefa {
     @Column(name = "data_criacao", nullable = false)
     @NotNull(message = "Insira uma data")
     @PastOrPresent(message = "A data de criação não pode ser uma data futura")
-    private LocalDate dataCriacao;
+    private Timestamp dataCriacao;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "status_id", referencedColumnName = "id", nullable = false)
     @NotNull(message = "Insira um status")
     private Status status;
-
-    public Tarefa(Long numero, Integer exercicio, Pessoa requerente, String titulo, Categoria categoria,
-                  String descricao, Pessoa requerido, Local localDestino, LocalDate dataCriacao, Status status) {
-        this.numero = numero;
-        this.exercicio = exercicio;
-        this.requerente = requerente;
-        this.titulo = titulo;
-        this.categoria = categoria;
-        this.descricao = descricao;
-        this.requerido = requerido;
-        this.localDestino = localDestino;
-        this.dataCriacao = dataCriacao;
-        this.status = status;
-    }
 }

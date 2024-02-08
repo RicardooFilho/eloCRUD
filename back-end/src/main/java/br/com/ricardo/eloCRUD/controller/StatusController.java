@@ -1,11 +1,8 @@
 package br.com.ricardo.eloCRUD.controller;
 
-import br.com.ricardo.eloCRUD.adapter.StatusAdapter;
 import br.com.ricardo.eloCRUD.domain.Status;
 import br.com.ricardo.eloCRUD.dto.StatusDTO;
-import br.com.ricardo.eloCRUD.repository.StatusRepository;
 import br.com.ricardo.eloCRUD.service.StatusService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,15 +19,15 @@ public class StatusController {
     private StatusService statusService;
 
     @GetMapping
-    public ResponseEntity<Page<StatusDTO>> pegarTodosStatusDescricao(@RequestParam(value = "descricao", required = false) String descricao,
-                                                                     Pageable pageable) {
+    public ResponseEntity<Page<StatusDTO>> getTodosStatusDescricao(@RequestParam(value = "descricao", required = false) String descricao,
+                                                                   Pageable pageable) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.statusService.getTodosStatusDescricao(descricao, pageable));
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<StatusDTO> pegarStatusPorId(@PathVariable Long id) {
+    public ResponseEntity<StatusDTO> getStatusPorId(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.statusService.getStatusPorId(id));
@@ -58,7 +55,7 @@ public class StatusController {
     }
 
     @DeleteMapping("/id/{id}")
-    public ResponseEntity<Void> deletarStatusPorId (@PathVariable Long id) {
+    public ResponseEntity<Void> deleteStatusPorId (@PathVariable Long id) {
         this.statusService.deleteStatus(id);
 
         return ResponseEntity
