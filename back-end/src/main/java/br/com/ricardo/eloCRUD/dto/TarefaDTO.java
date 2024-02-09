@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Data
@@ -27,7 +28,7 @@ public class TarefaDTO {
 
     private LocalDTO localDestinoDto;
 
-    private LocalDate dataCriacao;
+    private Timestamp dataCriacao;
 
     private StatusDTO statusDto;
 

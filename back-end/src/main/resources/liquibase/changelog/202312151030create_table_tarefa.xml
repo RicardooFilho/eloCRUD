@@ -37,7 +37,7 @@
             <column name="local_destino_id" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="data_criacao" type="date">
+            <column name="data_criacao" type="timestamp">
                 <constraints nullable="false"/>
             </column>
             <column name="status_id" type="int">

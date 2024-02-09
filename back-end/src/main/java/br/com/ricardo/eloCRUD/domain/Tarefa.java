@@ -1,14 +1,14 @@
 package br.com.ricardo.eloCRUD.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import jakarta.validation.constraints.NotBlank;
-
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -18,6 +18,7 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(of = "numero")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Tarefa {
 
     @Id
