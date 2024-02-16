@@ -55,4 +55,5 @@ public class Pessoa {
             joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "local_id", referencedColumnName = "id"))
     private List<Local> locais = new ArrayList<Local>();
+    //.
 }
