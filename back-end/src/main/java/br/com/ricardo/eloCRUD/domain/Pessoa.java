@@ -1,14 +1,14 @@
 package br.com.ricardo.eloCRUD.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Email;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +17,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Pessoa {
 
     @Id
@@ -44,17 +45,14 @@ public class Pessoa {
     @Email(message = "E-mail inválido")
     private String email;
 
+    @PastOrPresent
+    @Column(name = "data_nascimento", nullable = false)
+    @NotNull(message = "Insira sua data de nascimento")
+    private LocalDate dataNascimento;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "pessoa_local",
             joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "local_id", referencedColumnName = "id"))
     private List<Local> locais = new ArrayList<Local>();
-
-    public Pessoa(Long id, String nome, String cpf, String telefone, String email) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.email = email;
-    }
 }
