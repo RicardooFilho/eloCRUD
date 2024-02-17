@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
@@ -27,25 +28,27 @@ public class Pessoa {
 
     @Column(length = 254, nullable = false)
     @NotBlank(message = "Insira um nome")
+    @Length(message = "Nome deve conter no máximo 254 caracteres", max = 254)
     private String nome;
 
     @Column(length = 11, nullable = false)
     @NotBlank(message = "Insira um CPF")
     @CPF(message = "CPF inválido")
-    @Size(message = "CPF deve conter apenas 11 números", min = 11, max = 11)
+    @Length(message = "CPF deve conter apenas 11 números", min = 11, max = 11)
     private String cpf;
 
     @Column(length = 11, nullable = false)
     @NotBlank(message = "Insira um telefone")
-    @Size(message = "Telefone deve conter apenas 11 números", min = 11, max = 11)
+    @Length(message = "Telefone deve conter apenas 11 números", min = 11, max = 11)
     private String telefone;
 
     @Column(length = 100, nullable = false)
     @NotBlank(message = "Insira um e-mail")
     @Email(message = "E-mail inválido")
+    @Length(message = "Email deve conter no máximo 100 caracteres", max = 100)
     private String email;
 
-    @PastOrPresent
+    @PastOrPresent(message = "Data nascimento não pode ser uma data futura")
     @Column(name = "data_nascimento", nullable = false)
     @NotNull(message = "Insira sua data de nascimento")
     private LocalDate dataNascimento;
