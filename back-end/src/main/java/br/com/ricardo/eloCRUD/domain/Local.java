@@ -1,10 +1,9 @@
 package br.com.ricardo.eloCRUD.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 
 
 import java.util.ArrayList;
@@ -15,6 +14,8 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Local {
 
     @Id
@@ -24,13 +25,9 @@ public class Local {
 
     @Column(length = 50, nullable = false)
     @NotBlank(message = "Insira uma descrição")
+    @Length(message = "Descrição deve conter no máximo 50 caracteres", max = 50)
     private String descricao;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "locais")
     private List<Pessoa> pessoas = new ArrayList<Pessoa>();
-
-    public Local(Long id, String descricao) {
-        this.id = id;
-        this.descricao = descricao;
-    }
 }

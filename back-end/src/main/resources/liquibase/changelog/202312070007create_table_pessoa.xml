@@ -28,6 +28,9 @@
             <column name="email" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
+            <column name="data_nascimento" type="date">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

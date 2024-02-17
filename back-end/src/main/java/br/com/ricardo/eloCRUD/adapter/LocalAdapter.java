@@ -1,6 +1,7 @@
 package br.com.ricardo.eloCRUD.adapter;
 
 import br.com.ricardo.eloCRUD.domain.Local;
+import br.com.ricardo.eloCRUD.domain.Pessoa;
 import br.com.ricardo.eloCRUD.dto.LocalDTO;
 import br.com.ricardo.eloCRUD.dto.PessoaDTO;
 import lombok.Builder;
@@ -16,8 +17,23 @@ public class LocalAdapter implements Adapter<LocalDTO, Local> {
 
     @Override
     public Local toEntity(LocalDTO localDTO) {
+        List<Pessoa> pessoas = localDTO.getPessoas()
+                .stream()
+                .map(pessoaDTO -> {
+                    return Pessoa.builder()
+                            .id(pessoaDTO.getId())
+                            .nome(pessoaDTO.getNome())
+                            .cpf(pessoaDTO.getCpf())
+                            .telefone(pessoaDTO.getTelefone())
+                            .email(pessoaDTO.getEmail())
+                            .dataNascimento(pessoaDTO.getDataNascimento())
+                            .idade(pessoaDTO.getIdade())
+                            .build();
+                }).collect(Collectors.toList());
+
         return new Local(localDTO.getId(),
-                localDTO.getDescricao());
+                        localDTO.getDescricao(),
+                        pessoas);
     }
 
     @Override
@@ -31,6 +47,8 @@ public class LocalAdapter implements Adapter<LocalDTO, Local> {
                             .cpf(pessoa.getCpf())
                             .telefone(pessoa.getTelefone())
                             .email(pessoa.getEmail())
+                            .dataNascimento(pessoa.getDataNascimento())
+                            .idade(pessoa.getIdade())
                             .build();
                 })
                 .collect(Collectors.toList());

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class Categoria {
 
     @Column(length = 20, nullable = false)
     @NotBlank(message = "Insira uma descrição")
+    @Length(message = "Descrição deve conter no máximo 20 caracteres", max = 20)
     private String descricao;
 
     public Categoria(Long id, String descricao) {

@@ -19,15 +19,13 @@ public class Formatter {
         }
     }
 
-    public static void formatCpfPageable(Page<PessoaDTO> pessoaDTOPage) {
+    public static void formatCpfTelefonePageable(Page<PessoaDTO> pessoaDTOPage) {
         pessoaDTOPage.map(pessoaDTO -> {
             pessoaDTO.setCpf(Formatter.formatString(pessoaDTO.getCpf(), "###.###.###-##"));
 
             return pessoaDTO;
         });
-    }
 
-    public static void formatTelefonePageable(Page<PessoaDTO> pessoaDTOPage) {
         pessoaDTOPage.map(pessoaDTO -> {
             pessoaDTO.setTelefone(Formatter.formatString(pessoaDTO.getTelefone(), "(##) #####-####"));
 
@@ -35,13 +33,8 @@ public class Formatter {
         });
     }
 
-    public static void formatCpf(PessoaDTO pessoaDTO) {
+    public static void formatCpfTelefone(PessoaDTO pessoaDTO) {
         pessoaDTO.setCpf(Formatter.formatString(pessoaDTO.getCpf(), "###.###.###-##"));
-    }
-
-    public static void formatTelefone(PessoaDTO pessoaDTO) {
         pessoaDTO.setTelefone(Formatter.formatString(pessoaDTO.getTelefone(), "(##) #####-####"));
     }
-
-
 }

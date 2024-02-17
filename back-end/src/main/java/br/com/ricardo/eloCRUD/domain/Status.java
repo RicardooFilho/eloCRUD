@@ -7,9 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotBlank;
-
-
-
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "status")
@@ -25,6 +23,7 @@ public class Status {
 
     @Column(length = 30, nullable = false)
     @NotBlank(message = "Insira uma descrição")
+    @Length(message = "Descrição deve conter no máxiomo 30 caracteres", max = 30)
     private String descricao;
 
     @Enumerated(EnumType.STRING)

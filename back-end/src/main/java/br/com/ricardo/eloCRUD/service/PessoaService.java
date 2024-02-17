@@ -26,16 +26,14 @@ public class PessoaService {
         if (Objects.nonNull(nome) || Objects.nonNull(cpf)) {
             Page<PessoaDTO> pessoaDTOPage = this.pessoaRepository.getByNomeAndCpf(nome, cpf, pageable).map(pessoa -> this.pessoaAdapter.toDto(pessoa));
 
-            Formatter.formatCpfPageable(pessoaDTOPage);
-            Formatter.formatTelefonePageable(pessoaDTOPage);
+            Formatter.formatCpfTelefonePageable(pessoaDTOPage);
 
             return pessoaDTOPage;
         }
 
         Page<PessoaDTO> pessoaDTOPage = this.pessoaRepository.findAll(pageable).map(pessoa -> this.pessoaAdapter.toDto(pessoa));
 
-        Formatter.formatCpfPageable(pessoaDTOPage);
-        Formatter.formatTelefonePageable(pessoaDTOPage);
+        Formatter.formatCpfTelefonePageable(pessoaDTOPage);
 
         return pessoaDTOPage;
     }
@@ -43,8 +41,7 @@ public class PessoaService {
     public PessoaDTO getPessoaPorId(Long id) {
         PessoaDTO pessoaDTO = this.pessoaAdapter.toDto(this.pessoaRepository.findById(id).orElseThrow(PessoaNotFoundException::new));
 
-        Formatter.formatCpf(pessoaDTO);
-        Formatter.formatTelefone(pessoaDTO);
+        Formatter.formatCpfTelefone(pessoaDTO);
 
         return pessoaDTO;
     }
@@ -60,6 +57,8 @@ public class PessoaService {
         pessoaSalva.setCpf(novaPessoa.getCpf());
         pessoaSalva.setTelefone(novaPessoa.getTelefone());
         pessoaSalva.setEmail(novaPessoa.getEmail());
+        pessoaSalva.setDataNascimento(novaPessoa.getDataNascimento());
+        pessoaSalva.setIdade(novaPessoa.getIdade());
         pessoaSalva.getLocais().clear();
         pessoaSalva.getLocais().addAll(novaPessoa.getLocais());
 

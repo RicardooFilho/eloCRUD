@@ -2,10 +2,8 @@ package br.com.ricardo.eloCRUD.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.Formula;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -19,6 +17,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Pessoa {
 
     @Id
@@ -45,7 +44,7 @@ public class Pessoa {
     @Column(length = 100, nullable = false)
     @NotBlank(message = "Insira um e-mail")
     @Email(message = "E-mail inválido")
-    @Length(message = "Email deve conter no máximo 100 caracteres", max = 100)
+    @Length(message = "E-mail deve conter no máximo 100 caracteres", max = 100)
     private String email;
 
     @PastOrPresent(message = "Data nascimento não pode ser uma data futura")
@@ -53,10 +52,21 @@ public class Pessoa {
     @NotNull(message = "Insira sua data de nascimento")
     private LocalDate dataNascimento;
 
+//    @Formula("(select date_part('years', age(data_nascimento)) from pessoa)")
+    @Transient
+    private Integer idade;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "pessoa_local",
             joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "local_id", referencedColumnName = "id"))
     private List<Local> locais = new ArrayList<Local>();
-    //.
+
+    public Integer setIdadePorData() {
+        if (LocalDate.now().isBefore(LocalDate.of(LocalDate.now().getYear(), dataNascimento.getMonth(), dataNascimento.getDayOfMonth()))) {
+            return this.idade = (LocalDate.now().getYear() - dataNascimento.getYear()) - 1;
+        }
+
+        return this.idade = LocalDate.now().getYear() - dataNascimento.getYear();
+    }
 }

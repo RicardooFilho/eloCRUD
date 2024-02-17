@@ -28,7 +28,7 @@ public class TarefaDTO {
 
     private LocalDTO localDestinoDto;
 
-    private Timestamp dataCriacao;
+    private LocalDate dataCriacao;
 
     private StatusDTO statusDto;
 

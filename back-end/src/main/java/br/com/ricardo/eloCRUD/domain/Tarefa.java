@@ -9,8 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Entity
@@ -38,6 +38,7 @@ public class Tarefa {
 
     @Column(length = 100, nullable = false)
     @NotBlank(message = "Insira um título")
+    @Length(message = "Título deve conter no máximo 100 caracteres", max = 100)
     private String titulo;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -46,6 +47,7 @@ public class Tarefa {
 
     @Column(length = 1500, nullable = false)
     @NotBlank(message = "Insira uma descrição")
+    @Length(message = "Descrição deve conter no máximo 1500 caracteres", max = 1500)
     private String descricao;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -60,7 +62,7 @@ public class Tarefa {
     @Column(name = "data_criacao", nullable = false)
     @NotNull(message = "Insira uma data")
     @PastOrPresent(message = "A data de criação não pode ser uma data futura")
-    private Timestamp dataCriacao;
+    private LocalDate dataCriacao;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "status_id", referencedColumnName = "id", nullable = false)
