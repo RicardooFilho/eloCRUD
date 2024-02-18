@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,10 +64,13 @@ public class Pessoa {
     private List<Local> locais = new ArrayList<Local>();
 
     public Integer setIdadePorData() {
-        if (LocalDate.now().isBefore(LocalDate.of(LocalDate.now().getYear(), dataNascimento.getMonth(), dataNascimento.getDayOfMonth()))) {
-            return this.idade = (LocalDate.now().getYear() - dataNascimento.getYear()) - 1;
+        /*LocalDate dataAtual = LocalDate.now();
+        if (dataAtual.isBefore(LocalDate.of(dataAtual.getYear(), dataNascimento.getMonth(), dataNascimento.getDayOfMonth()))) {
+            return this.idade = (dataAtual.getYear() - dataNascimento.getYear()) - 1;
         }
 
-        return this.idade = LocalDate.now().getYear() - dataNascimento.getYear();
+        return this.idade = dataAtual.getYear() - dataNascimento.getYear();*/
+
+        return this.idade = Period.between(this.dataNascimento, LocalDate.now()).getYears();
     }
 }
