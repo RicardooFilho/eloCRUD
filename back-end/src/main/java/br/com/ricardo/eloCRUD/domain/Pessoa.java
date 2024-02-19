@@ -1,9 +1,9 @@
 package br.com.ricardo.eloCRUD.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.hibernate.annotations.Formula;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -32,6 +32,7 @@ public class Pessoa {
     private String nome;
 
     @Column(length = 11, nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "###.###.###-##")
     @NotBlank(message = "Insira um CPF")
     @CPF(message = "CPF inválido")
     @Length(message = "CPF deve conter apenas 11 números", min = 11, max = 11)
@@ -63,7 +64,11 @@ public class Pessoa {
             inverseJoinColumns = @JoinColumn(name = "local_id", referencedColumnName = "id"))
     private List<Local> locais = new ArrayList<Local>();
 
-    public Integer setIdadePorData() {
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "pessoa_id", referencedColumnName = "id", nullable = false)
+    private List<Endereco> enderecos = new ArrayList<Endereco>();
+
+    public void setIdadePorData() {
         /*LocalDate dataAtual = LocalDate.now();
         if (dataAtual.isBefore(LocalDate.of(dataAtual.getYear(), dataNascimento.getMonth(), dataNascimento.getDayOfMonth()))) {
             return this.idade = (dataAtual.getYear() - dataNascimento.getYear()) - 1;
@@ -71,6 +76,6 @@ public class Pessoa {
 
         return this.idade = dataAtual.getYear() - dataNascimento.getYear();*/
 
-        return this.idade = Period.between(this.dataNascimento, LocalDate.now()).getYears();
+        this.idade = Period.between(this.dataNascimento, LocalDate.now()).getYears();
     }
 }

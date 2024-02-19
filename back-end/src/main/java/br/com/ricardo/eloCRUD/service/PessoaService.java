@@ -26,14 +26,14 @@ public class PessoaService {
         if (Objects.nonNull(nome) || Objects.nonNull(cpf)) {
             Page<PessoaDTO> pessoaDTOPage = this.pessoaRepository.getByNomeAndCpf(nome, cpf, pageable).map(pessoa -> this.pessoaAdapter.toDto(pessoa));
 
-            Formatter.formatCpfTelefonePageable(pessoaDTOPage);
+//            Formatter.formatCpfTelefonePageable(pessoaDTOPage);
 
             return pessoaDTOPage;
         }
 
         Page<PessoaDTO> pessoaDTOPage = this.pessoaRepository.findAll(pageable).map(pessoa -> this.pessoaAdapter.toDto(pessoa));
 
-        Formatter.formatCpfTelefonePageable(pessoaDTOPage);
+//        Formatter.formatCpfTelefonePageable(pessoaDTOPage);
 
         return pessoaDTOPage;
     }
