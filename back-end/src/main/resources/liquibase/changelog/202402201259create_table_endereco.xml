@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create-table-endereco" author="RicardooFilho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela endereço já existe">
+            <not>
+                <tableExists tableName="endereco"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="endereco">
+            <column name="id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_endereco"/>
+            </column>
+            <column name="pessoa_id">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cep" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="logradouro" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bairro" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="complemento" type="varchar(30)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cidade" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uf" type="varchar(2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

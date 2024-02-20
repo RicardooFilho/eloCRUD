@@ -61,6 +61,8 @@ public class PessoaService {
         pessoaSalva.setIdade(novaPessoa.getIdade());
         pessoaSalva.getLocais().clear();
         pessoaSalva.getLocais().addAll(novaPessoa.getLocais());
+        pessoaSalva.getEnderecos().clear();
+        pessoaSalva.getEnderecos().addAll(novaPessoa.getEnderecos());
 
         return this.pessoaRepository.save(pessoaSalva);
     }
