@@ -29,7 +29,7 @@ public class LocalAdapter implements Adapter<LocalDTO, Local> {
                             .dataNascimento(pessoaDTO.getDataNascimento())
                             .idade(pessoaDTO.getIdade())
                             .build();
-                }).collect(Collectors.toList());
+                }).toList();
 
         return new Local(localDTO.getId(),
                         localDTO.getDescricao(),
@@ -51,7 +51,7 @@ public class LocalAdapter implements Adapter<LocalDTO, Local> {
                             .idade(pessoa.getIdade())
                             .build();
                 })
-                .collect(Collectors.toList());
+                .toList();
 
         return new LocalDTO(local.getId(),
                 local.getDescricao(),

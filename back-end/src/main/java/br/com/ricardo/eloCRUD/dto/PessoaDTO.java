@@ -30,4 +30,6 @@ public class PessoaDTO {
     private Integer idade;
 
     private List<LocalDTO> locais = new ArrayList<LocalDTO>();
+
+    private List<EnderecoDTO> enderecos = new ArrayList<EnderecoDTO>();
 }

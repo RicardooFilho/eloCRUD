@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "pessoa")
+@Table(schema = "elo", name = "pessoa")
 @Data
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor

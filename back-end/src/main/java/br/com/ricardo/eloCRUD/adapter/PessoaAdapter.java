@@ -1,7 +1,9 @@
 package br.com.ricardo.eloCRUD.adapter;
 
+import br.com.ricardo.eloCRUD.domain.Endereco;
 import br.com.ricardo.eloCRUD.domain.Local;
 import br.com.ricardo.eloCRUD.domain.Pessoa;
+import br.com.ricardo.eloCRUD.dto.EnderecoDTO;
 import br.com.ricardo.eloCRUD.dto.LocalDTO;
 import br.com.ricardo.eloCRUD.dto.PessoaDTO;
 import lombok.Builder;
@@ -27,7 +29,21 @@ public class PessoaAdapter implements Adapter<PessoaDTO, Pessoa>{
                             .id(localDTO.getId())
                             .descricao(localDTO.getDescricao())
                             .build();
-                }).collect(Collectors.toList());
+                }).toList();
+
+        List<Endereco> enderecos = pessoaDTO.getEnderecos()
+                .stream()
+                .map(enderecoDTO -> {
+                    return Endereco.builder()
+                            .id(enderecoDTO.getId())
+                            .cep(enderecoDTO.getCep())
+                            .logradouro(enderecoDTO.getLogradouro())
+                            .bairro(enderecoDTO.getBairro())
+                            .complemento(enderecoDTO.getComplemento())
+                            .cidade(enderecoDTO.getCidade())
+                            .uf(enderecoDTO.getUf())
+                            .build();
+                }).toList();
 
         return new Pessoa(pessoaDTO.getId(),
                         pessoaDTO.getNome(),
@@ -36,7 +52,8 @@ public class PessoaAdapter implements Adapter<PessoaDTO, Pessoa>{
                         pessoaDTO.getEmail(),
                         pessoaDTO.getDataNascimento(),
                         pessoaDTO.getIdade(),
-                        locais);
+                        locais,
+                        enderecos);
     }
 
     @Override
@@ -52,8 +69,21 @@ public class PessoaAdapter implements Adapter<PessoaDTO, Pessoa>{
                             .id(local.getId())
                             .descricao(local.getDescricao())
                             .build();
-                })
-                .collect(Collectors.toList());
+                }).toList();
+
+        List<EnderecoDTO> enderecoDTOList = pessoa.getEnderecos()
+                .stream()
+                .map(endereco -> {
+                    return EnderecoDTO.builder()
+                            .id(endereco.getId())
+                            .cep(endereco.getCep())
+                            .logradouro(endereco.getLogradouro())
+                            .bairro(endereco.getBairro())
+                            .complemento(endereco.getComplemento())
+                            .cidade(endereco.getCidade())
+                            .uf(endereco.getUf())
+                            .build();
+                }).toList();
 
         pessoa.setIdadePorData();
 
@@ -64,6 +94,7 @@ public class PessoaAdapter implements Adapter<PessoaDTO, Pessoa>{
                             pessoa.getEmail(),
                             pessoa.getDataNascimento(),
                             pessoa.getIdade(),
-                            localDTOList);
+                            localDTOList,
+                            enderecoDTOList);
     }
 }
