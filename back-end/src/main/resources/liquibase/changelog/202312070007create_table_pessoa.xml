@@ -34,7 +34,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="create-pessoa-sequence" author="RicardoFilhoo">
+    <changeSet id="create-pessoa-sequence" author="RicardooFilho">
         <preConditions onFail="MARK_RAN" onFailMessage="A sequence pessoa_sequence já existe">
             <not>
                 <sequenceExists sequenceName="pessoa_sequence"/>

@@ -16,7 +16,7 @@
             <column name="id" type="int">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_endereco"/>
             </column>
-            <column name="pessoa_id">
+            <column name="pessoa_id" type="int">
                 <constraints nullable="false"/>
             </column>
             <column name="cep" type="varchar(8)">
@@ -38,5 +38,21 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        
+        <addForeignKeyConstraint baseTableName="endereco"
+                                 baseColumnNames="pessoa_id"
+                                 constraintName="fk_pessoa_id"
+                                 referencedTableName="pessoa"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="create-sequence-endereco" author="RicardooFilho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A sequence_endereco já existe">
+            <not>
+                <sequenceExists sequenceName="endereco_sequence"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="endereco_sequence"  startValue="1" minValue="1" incrementBy="1"/>
     </changeSet>
 </databaseChangeLog>

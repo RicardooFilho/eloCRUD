@@ -24,7 +24,9 @@ public class PessoaService {
 
     public Page<PessoaDTO> getTodasPessoasNomeCpf(String nome, String cpf, Pageable pageable) {
         if (Objects.nonNull(nome) || Objects.nonNull(cpf)) {
-            Page<PessoaDTO> pessoaDTOPage = this.pessoaRepository.getByNomeAndCpf(nome, cpf, pageable).map(pessoa -> this.pessoaAdapter.toDto(pessoa));
+            Page<PessoaDTO> pessoaDTOPage = this.pessoaRepository
+                    .getByNomeAndCpf(nome, cpf, pageable)
+                    .map(pessoa -> this.pessoaAdapter.toDto(pessoa));
 
 //            Formatter.formatCpfTelefonePageable(pessoaDTOPage);
 
