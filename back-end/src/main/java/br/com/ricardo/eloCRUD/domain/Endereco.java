@@ -41,7 +41,8 @@ public class Endereco {
     private String complemento;
 
     @NotBlank(message = "Informe a cidade")
-
+    @Column(name = "cidade", length = 40, nullable = false)
+    @Length(message = "Cidade pode ter no máximo 40 caracteres", min = 1, max = 40)
     private String cidade;
 
     @NotBlank(message = "Informe a unidade federativa")
