@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
-import java.util.Objects;
-
 @Entity
 @Table(name = "endereco")
 @AllArgsConstructor
@@ -46,5 +44,7 @@ public class Endereco {
     private String cidade;
 
     @NotBlank(message = "Informe a unidade federativa")
+    @Column(name = "uf", length = 2, nullable = false)
+    @Length(message = "UF pode ter no máximo 2 caracteres", min = 2, max = 2)
     private String uf;
 }
