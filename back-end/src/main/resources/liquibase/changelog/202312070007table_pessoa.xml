@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="CREATE-TABLE-PESSOA" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela PESSOA já existe">
+            <not>
+                <tableExists tableName="PESSOA"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="PESSOA">
+            <column name="ID" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PESSOA"/>
+            </column>
+            <column name="NOME" type="varchar(254)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPF" type="varchar(11)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="TELEFONE" type="varchar(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMAIL" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATA_NASCIMENTO" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="CREATE-PESSOA-SEQUENCE" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A sequence PESSOA_SEQUENCE já existe">
+            <not>
+                <sequenceExists sequenceName="PESSOA_SEQUENCE"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="PESSOA_SEQUENCE" startValue="1" incrementBy="1" minValue="1" maxValue="99999"/>
+    </changeSet>
+</databaseChangeLog>

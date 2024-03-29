@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="CREATE-TABLE-STATUS" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela STATUS já existe">
+            <not>
+                <tableExists tableName="STATUS"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="STATUS">
+            <column name="ID" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_STATUS"/>
+            </column>
+            <column name="DESCRICAO" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SITUACAO" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="CREATE-STATUS_SEQUENCE" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A sequence STATUS_SEQUENCE já existe">
+            <not>
+                <sequenceExists sequenceName="STATUS_SEQUENCE"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="STATUS_SEQUENCE" startValue="1" incrementBy="1" minValue="1" maxValue="99999"/>
+    </changeSet>
+</databaseChangeLog>

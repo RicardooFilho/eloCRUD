@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="CREATE-TABLE-PESSOA_LOCAL" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela PESSOA_LOCAL já existe">
+            <not>
+                <tableExists tableName="PESSOA_LOCAL"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="PESSOA_LOCAL">
+            <column name="PESSOA_ID" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PESSOA_ID"/>
+            </column>
+            <column name="LOCAL_ID" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOCAL_ID"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="ADD-FOREIGNKEY-CONSTRAINT-PESSOA_ID" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A foreign key PESSOA_ID já existe">
+            <foreignKeyConstraintExists foreignKeyName="PESSOA_ID" foreignKeyTableName="PESSOA_LOCAL"/>
+        </preConditions>
+
+        <addForeignKeyConstraint baseTableName="PESSOA_LOCAL"
+                                 baseColumnNames="PESSOA_ID"
+                                 constraintName="FK_PESSOA_ID"
+                                 referencedTableName="PESSOA"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+
+    <changeSet id="ADD-FOREIGNKEY-CONSTRAINT-LOCAL_ID" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A foreign key LOCAL_ID já existe">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="LOCAL_ID" foreignKeyTableName="PESSOA_LOCAL"/>
+            </not>
+        </preConditions>
+
+        <addForeignKeyConstraint baseTableName="PESSOA_LOCAL"
+                                 baseColumnNames="LOCAL_ID"
+                                 constraintName="FK_LOCAL_ID"
+                                 referencedTableName="LOCAL"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="CREATE-TABLE-LOCAL" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela LOCAL já existe">
+            <not>
+                <tableExists tableName="LOCAL"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="LOCAL">
+            <column name="ID" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOCAL"/>
+            </column>
+            <column name="DESCRICAO" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="CREATE-LOCAL-SEQUENCE" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A sequence LOCAL_SEQUENCE já existe">
+            <not>
+                <sequenceExists sequenceName="LOCAL_SEQUENCE"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="LOCAL_SEQUENCE" startValue="1" incrementBy="1" minValue="1" maxValue="99999"/>
+    </changeSet>
+</databaseChangeLog>

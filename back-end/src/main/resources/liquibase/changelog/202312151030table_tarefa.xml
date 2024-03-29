@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="CREATE-TABLE-TAREFA" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela TAREFA já existe">
+            <not>
+                <tableExists tableName="TAREFA"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="TAREFA">
+            <column name="NUMERO" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TAREFA"/>
+            </column>
+            <column name="EXERCICIO" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REQUERENTE_ID" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TITULO" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CATEGORIA_ID" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRICAO" type="varchar(1500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REQUERIDO_ID" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="LOCAL_DESTINO_ID" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATA_CRIACAO" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATUS_ID" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="tarefa"
+                                 baseColumnNames="local_destino_id"
+                                 constraintName="fk_local_destino_id"
+                                 referencedTableName="local"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="tarefa"
+                                 baseColumnNames="status_id"
+                                 constraintName="fk_status_id"
+                                 referencedTableName="status"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="CREATE-TAREFA_SEQUENCE" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A sequence TAREFA_SEQUENCE já existe">
+            <not>
+                <sequenceExists sequenceName="TAREFA_SEQUENCE"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="TAREFA_SEQUENCE" startValue="1" incrementBy="1" minValue="1" maxValue="99999"/>
+    </changeSet>
+    
+    <changeSet id="ADD-FOREIGNKEY-CONSTRAINT-REQUERENTE_ID" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A constraint REQUERENTE_ID já existe">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="REQUERENTE_ID" foreignKeyTableName="TAREFA"/>
+            </not>
+        </preConditions>
+
+        <addForeignKeyConstraint baseTableName="TAREFA"
+                                 baseColumnNames="REQUERENTE_ID"
+                                 constraintName="FK_REQUERENTE_ID"
+                                 referencedTableName="PESSOA"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+
+    <changeSet id="ADD-FOREIGNKEY-CONSTRAINT-CATEGORIA_ID" author="ricardo.filho">
+        <preConditions onFail="MARK_RAN" onFailMessage="A constraint CATEGORIA_ID já existe">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="CATEGORIA_ID" foreignKeyTableName="TAREFA"/>
+            </not>
+        </preConditions>
+
+        <addForeignKeyConstraint baseTableName="TAREFA"
+                                 baseColumnNames="CATEGORIA_ID"
+                                 constraintName="FK_CATEGORIA_ID"
+                                 referencedTableName="CATEGORIA"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+
+    <changeSet id="ADD-FOREIGNKEY-CONSTRAINT-REQUERIDO_ID" author="ricardo.filh o">
+        <preConditions onFail="MARK_RAN" onFailMessage="A constraint REQUERIDO_ID já existe">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="REQUERIDO_ID"/>
+            </not>
+        </preConditions>
+
+        <addForeignKeyConstraint baseTableName="TAREFA"
+                                 baseColumnNames="REQUERIDO_ID"
+                                 constraintName="FK_REQUERIDO_ID"
+                                 referencedTableName="PESSOA"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+
+    <changeSet id="ADD-FOREIGNKEY-CONSTRAINT-LOCAL_DESTINO_ID" author="ricardo.filho">
+        <preConditions>
+            <not>
+                <foreignKeyConstraintExists/>
+            </not>
+        </preConditions>
+    </changeSet>
+
+</databaseChangeLog>
